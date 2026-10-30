@@ -112,8 +112,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:
 }
 @media (max-width:700px){
   body{font-size:16px}
-  .mast-row{grid-template-columns:40px 1fr 40px;padding-block:var(--s4) var(--s3)}
-  .mast-row .who{visibility:hidden}
+  .mast-row{grid-template-columns:1fr auto 1fr;padding-block:var(--s4) var(--s3)}
+  .mast-row .who{display:none}
+  .mark{grid-column:2}
+  .saved{grid-column:3}
   .mark{font-size:14px;letter-spacing:.12em;text-align:center}
   .nav{justify-content:flex-start;gap:var(--s6);padding-bottom:var(--s3);scroll-padding-inline:16px}
   .nav a{font-size:14px}
