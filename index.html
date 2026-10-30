@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>The Holiday Edit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400&family=Hanken+Grotesk:wght@400;500;600&family=Syncopate:wght@400&display=swap">
+<style>
+/* Layout: department-store editorial. Black masthead → intro → one section per look (outfit assembled on a body + copy + Shop the look) → shop drawer with product cards → stylist notes. White, black, one grey. */
+:root{
+  --white:#FFFFFF; --ink:#0A0A0A; --grey:#6B6B6B; --tile:#F2F1EF; --line:#E2E2E2; --burnt:#8E2B1E;
+  --serif:"Newsreader","Tiempos Text",Georgia,serif;
+  --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mark:"Syncopate","Eurostile","Helvetica Neue",sans-serif;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s6:24px;--s8:32px;--s12:48px;--s16:64px;--s24:96px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--white);color:var(--ink)}
+body{font-family:var(--serif);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;font-weight:400}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:1px solid currentColor;outline-offset:3px}
+.kicker{font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-width:240px;padding:var(--s4) var(--s8);background:var(--ink);color:var(--white);font-family:var(--sans);font-size:15px;text-decoration:none;transition:background .3s}
+.btn:hover{background:#333}
+
+/* Masthead */
+.mast{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--ink);color:var(--white)}
+.mast-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-block:var(--s6) var(--s4)}
+.mast-row .who{font-family:var(--sans);font-size:14px;color:#cfcfcf}
+.mark{font-family:var(--mark);font-size:clamp(15px,2vw,24px);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.saved{justify-self:end;display:flex;align-items:center;gap:var(--s2);font-family:var(--sans);font-size:15px}
+.saved svg{width:20px;height:20px}
+.nav{display:flex;justify-content:center;gap:var(--s8);overflow-x:auto;scrollbar-width:none;padding-bottom:var(--s4)}
+.nav a{font-family:var(--sans);font-size:15px;text-decoration:none;color:#e9e9e9;white-space:nowrap;padding-block:var(--s1);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav a:hover{border-color:currentColor}
+.nav a.hot{color:#E0644F}
+.intro .kicker,.look-copy .kicker,.drawer-head .kicker,.card .tag{color:var(--burnt)}
+.heart[aria-pressed="true"]{color:var(--burnt)}
+.btn:hover{background:var(--burnt)}
+
+/* Intro */
+.intro{text-align:center;padding-block:var(--s16) var(--s12);border-bottom:1px solid var(--line)}
+.intro .kicker{color:var(--grey)}
+.intro h1{font-size:clamp(44px,6vw,72px);line-height:1.05;margin-top:var(--s4)}
+.intro p{max-width:52ch;margin:var(--s6) auto 0}
+
+/* Looks */
+.look{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--s16);align-items:center;padding-block:var(--s16);border-bottom:1px solid var(--line);scroll-margin-top:120px}
+.look:nth-child(even) .figure{order:2}
+.figure{position:relative;width:100%;max-width:560px;justify-self:center;aspect-ratio:10/13;cursor:pointer;opacity:0;transition:opacity 1.2s ease}
+.figure.in{opacity:1}
+.figure img{position:absolute;height:auto;filter:drop-shadow(0 10px 12px rgba(0,0,0,.08))}
+.look-copy .kicker{color:var(--grey)}
+.look-copy h2{font-size:clamp(48px,5.4vw,72px);line-height:1;margin-top:var(--s4)}
+.look-copy p{margin:var(--s6) 0 var(--s8);max-width:36ch}
+.look-copy .count{display:block;margin-top:var(--s4);font-family:var(--sans);font-size:14px;color:var(--grey)}
+
+/* Shop drawer */
+.scrim{position:fixed;inset:0;z-index:20;background:rgba(10,10,10,.4);opacity:0;pointer-events:none;transition:opacity .4s ease}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:21;width:min(760px,100%);background:var(--white);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .55s cubic-bezier(.2,.7,.1,1);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:start;gap:var(--s4);padding:var(--s8) var(--s8) var(--s6);border-bottom:1px solid var(--line)}
+.drawer-head .kicker{color:var(--grey)}
+.drawer-head h2{font-size:40px;line-height:1.05;margin-top:var(--s2)}
+.close{width:40px;height:40px;display:grid;place-items:center;flex:none}
+.close svg{width:22px;height:22px}
+.drawer-body{overflow-y:auto;padding:var(--s8);flex:1}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s12) var(--s6)}
+.card{display:flex;flex-direction:column;min-width:0;text-decoration:none}
+.card .ph{position:relative;aspect-ratio:3/4;background:var(--tile);display:grid;place-items:center;overflow:hidden}
+.card .ph img{width:74%;height:80%;object-fit:contain}
+.card .quick{position:absolute;left:var(--s4);right:var(--s4);bottom:var(--s4);padding:var(--s4);background:rgba(255,255,255,.94);font-family:var(--sans);font-size:15px;text-align:center;opacity:0;transition:opacity .3s ease}
+.card:hover .quick,.card:focus-visible .quick{opacity:1}
+.heart{position:absolute;top:var(--s3);right:var(--s3);width:36px;height:36px;display:grid;place-items:center;z-index:1}
+.heart svg{width:21px;height:21px}
+.heart[aria-pressed="true"] path{fill:currentColor}
+.card .brand{font-family:var(--sans);font-weight:600;font-size:16px;letter-spacing:.02em;text-transform:uppercase;margin-top:var(--s4)}
+.card .desc{color:var(--grey);font-size:18px;line-height:1.35;margin-top:var(--s1)}
+.card .tag{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-top:var(--s4)}
+
+/* Notes */
+.notes{padding-block:var(--s16) var(--s24);scroll-margin-top:120px}
+.notes .kicker{display:block;text-align:center;margin-bottom:var(--s12)}
+.note-row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s8)}
+.note h3{font-size:24px;line-height:1.25}
+.note p{margin:var(--s3) 0 0;color:var(--grey);font-size:16px}
+
+footer{border-top:1px solid var(--line);padding-block:var(--s8) var(--s12)}
+footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;font-family:var(--sans);font-size:13px;color:var(--grey)}
+
+/* Personal watermark */
+#wm{position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.07;background-repeat:repeat}
+
+@media (max-width:900px){
+  .look{grid-template-columns:1fr;gap:var(--s8)}
+  .look:nth-child(even) .figure{order:0}
+  .figure{max-width:440px}
+  .note-row{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:700px){
+  .mast-row{grid-template-columns:1fr auto}
+  .mast-row .who{display:none}
+  .nav{justify-content:flex-start;gap:var(--s6)}
+  .note-row{grid-template-columns:1fr}
+  .btn{width:100%;min-width:0}
+  .drawer-head,.drawer-body{padding-left:var(--s4);padding-right:var(--s4)}
+  .cards{gap:var(--s8) var(--s3)}
+  .card .quick{opacity:1;font-size:13px;padding:var(--s2);left:var(--s2);right:var(--s2);bottom:var(--s2)}
+  .card .desc{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+  .figure{opacity:1}
+}
+</style>
+
+<div id="wm" aria-hidden="true"></div>
+
+<header class="mast">
+  <div class="wrap mast-row">
+    <span class="who">Private copy for Ana Torres</span>
+    <span class="mark">The Holiday Edit</span>
+    <span class="saved" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span id="saved-count">0</span></span>
+  </div>
+  <nav class="wrap nav" id="nav" aria-label="Looks"></nav>
+</header>
+
+<main>
+  <section class="wrap intro">
+    <span class="kicker">Holiday 2026</span>
+    <h1>Four nights, four looks</h1>
+    <p>Every outfit is put together piece by piece. Open Shop the look to see and buy each one.</p>
+  </section>
+  <div class="wrap" id="looks"></div>
+  <section class="wrap notes" id="notes">
+    <span class="kicker">Stylist notes</span>
+    <div class="note-row">
+      <div class="note"><h3>The coat is the look</h3><p>If you invest in one piece this season, make it this one.</p></div>
+      <div class="note"><h3>Socks with loafers</h3><p>The detail that makes an easy outfit look considered.</p></div>
+      <div class="note"><h3>One shine per night</h3><p>Patent, sequins or metal. Pick one and keep everything else matte.</p></div>
+      <div class="note"><h3>Repeat your pieces</h3><p>The jackets and jeans show up in more than one look on purpose.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>The Holiday Edit 2026 · Made for Ana Torres</span><span>Sample brands and pieces</span></div></footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
+  <div class="drawer-head">
+    <div><span class="kicker">Shop the look</span><h2 id="drawer-title"></h2></div>
+    <button class="close" id="close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <div class="drawer-body"><div class="cards" id="cards"></div></div>
+</aside>
+
+<script>
+const BUYER={name:"Ana Torres",email:"ana.torres@correo.com"};
+/* items: [image, brand, description, tag]; body: [image, left %, top in 0–130 units, width %, z] */
+const LOOKS=[
+ {id:"posada",name:"Posada Night",date:"December 16",copy:"A cherry sweater, brown suede and leopard. Warm enough for the patio, ready for the group photo.",
+  items:[["p08-046","Toteme","Suede collared jacket","Key piece"],["p07-042","Guest in Residence","Cashmere sweater in cherry",""],["p08-048","Agolde","Mid-rise straight-leg jeans",""],["p06-010","Khaite","Leopard-print shoulder bag","Stylist pick"],["p08-052","Paris Texas","Buckled leather boots",""],["p06-018","Cashmere in Love","Wool-cashmere socks",""]],
+  body:[["p08-048",38,42,24,1],["p08-046",12,4,40,2],["p07-042",29,9,42,3],["p06-010",60,56,32,4],["p06-018",66,102,13,1],["p08-052",40,98,22,2]]},
+ {id:"christmas-eve",name:"Christmas Eve",date:"December 24",copy:"Black leather, embroidered denim and a red clutch. Dinner is at home, the look is not.",
+  items:[["p15-190","Veronica Beard","Leather peplum jacket","Key piece"],["p15-198","B Sides","Embroidered straight-leg jeans",""],["p14-170","Nancy Gonzalez","Red leather clutch","Stylist pick"],["p15-192","Gianvito Rossi","Patent-leather mules",""],["p07-026","Toteme","Black leather belt",""]],
+  body:[["p15-198",39,46,22,1],["p15-190",32,12,36,3],["p14-170",6,62,32,4],["p15-192",38,110,24,2]]},
+ {id:"new-years-eve",name:"New Year’s Eve",date:"December 31",copy:"A military jacket, a brown mini and snake boots. Shine at midnight without trying too hard.",
+  items:[["p15-196","Saint Laurent","Wool military jacket","Key piece"],["p07-036","Sir.","Side-tie mini skirt",""],["p14-168","Khaite","Snake-effect knee boots","Stylist pick"],["p07-032","Staud","Python-effect shoulder bag",""],["p14-186","The Row","Strappy heeled sandals",""]],
+  body:[["p07-036",33,54,34,1],["p15-196",29,14,42,3],["p14-168",41,90,17,1],["p07-032",66,48,26,4]]},
+ {id:"day-after",name:"The Day After",date:"December 25",copy:"Grey, green stripes and navy. Leftovers at noon, still put together.",
+  items:[["p11-112","COS","Wool half-zip sweater",""],["p10-102","Arket","Striped long-sleeve tee",""],["p11-106","Khaite","Wide-leg navy trousers","Key piece"],["p11-114","The Row","Oversized suede tote","Stylist pick"],["p09-080","The Row","Leather boat shoes",""]],
+  body:[["p11-106",39,50,22,1],["p11-112",10,8,40,1],["p10-102",30,14,40,2],["p11-114",60,64,34,3],["p09-080",36,109,28,2]]}
+];
+const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+let saved={};try{saved=JSON.parse(localStorage.getItem("he-saved2")||"{}")}catch(e){}
+const countEl=document.getElementById("saved-count");
+const updateCount=()=>countEl.textContent=Object.values(saved).filter(Boolean).length;
+const go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
+
+/* Nav */
+const nav=document.getElementById("nav");
+nav.innerHTML=LOOKS.map(l=>`<a href="#${l.id}">${l.name}</a>`).join("")+`<a class="hot" href="#notes">Stylist notes</a>`;
+nav.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();go(a.getAttribute("href").slice(1))});
+
+/* Looks: outfit assembled on a body */
+document.getElementById("looks").innerHTML=LOOKS.map((l,i)=>`
+  <section class="look" id="${l.id}">
+    <div class="figure" data-i="${i}" role="button" tabindex="0" aria-label="Shop ${l.name}">
+      ${l.body.map(([img,x,y,w,z])=>`<img src="img/${img}.webp" alt="" style="left:${x}%;top:${(y/1.3).toFixed(2)}%;width:${w}%;z-index:${z}">`).join("")}
+    </div>
+    <div class="look-copy"><span class="kicker">${l.date}</span><h2>${l.name}</h2><p>${l.copy}</p>
+      <button class="btn" data-i="${i}">Shop the look</button><span class="count">${l.items.length} pieces</span></div>
+  </section>`).join("");
+
+/* Shop drawer */
+const drawer=document.getElementById("drawer"),scrim=document.getElementById("scrim"),cardsEl=document.getElementById("cards");
+let lastFocus=null;
+function openShop(i){
+  const l=LOOKS[i];
+  document.getElementById("drawer-title").textContent=l.name;
+  cardsEl.innerHTML=l.items.map(([img,brand,desc,tag],k)=>`
+    <a class="card" href="#">
+      <span class="ph"><img src="img/${img}.webp" alt="${desc}">
+        <button class="heart" id="save-${l.id}-${k}" aria-label="Save ${desc}" aria-pressed="${!!saved[l.id+k]}" data-key="${l.id+k}">${heart}</button>
+        <span class="quick">Shop now</span></span>
+      <span class="brand">${brand}</span><span class="desc">${desc}</span>${tag?`<span class="tag">${tag}</span>`:""}
+    </a>`).join("");
+  drawer.querySelector(".drawer-body").scrollTop=0;
+  lastFocus=document.activeElement;
+  drawer.classList.add("open");scrim.classList.add("open");drawer.setAttribute("aria-hidden","false");document.body.classList.add("locked");
+  setTimeout(()=>document.getElementById("close").focus(),50);
+}
+function closeShop(){
+  drawer.classList.remove("open");scrim.classList.remove("open");drawer.setAttribute("aria-hidden","true");document.body.classList.remove("locked");
+  lastFocus&&lastFocus.focus();
+}
+document.getElementById("looks").addEventListener("click",e=>{const t=e.target.closest("[data-i]");if(t)openShop(+t.dataset.i)});
+document.getElementById("looks").addEventListener("keydown",e=>{const t=e.target.closest(".figure");if(t&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openShop(+t.dataset.i)}});
+document.getElementById("close").onclick=closeShop;scrim.onclick=closeShop;
+addEventListener("keydown",e=>{if(e.key==="Escape"&&drawer.classList.contains("open"))closeShop()});
+cardsEl.addEventListener("click",e=>{
+  const h=e.target.closest(".heart");
+  if(h){e.preventDefault();const k=h.dataset.key;saved[k]=!saved[k];h.setAttribute("aria-pressed",saved[k]);try{localStorage.setItem("he-saved2",JSON.stringify(saved))}catch(_){};updateCount();return}
+  if(e.target.closest("a[href='#']"))e.preventDefault();
+});
+updateCount();
+
+/* Outfits fade in as they enter */
+const figs=[...document.querySelectorAll(".figure")];
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}}),{rootMargin:"0px 0px -10% 0px"});
+  figs.forEach(f=>io.observe(f));
+  setTimeout(()=>figs.forEach(f=>f.classList.add("in")),2500);
+}else figs.forEach(f=>f.classList.add("in"));
+
+/* Personal watermark */
+function watermark(){
+  const c=document.createElement("canvas");c.width=440;c.height=230;const x=c.getContext("2d");
+  x.translate(220,115);x.rotate(-0.4);x.fillStyle="#0A0A0A";x.textAlign="center";
+  x.font="400 11px Syncopate, Arial, sans-serif";
+  x.fillText((BUYER.name+"   "+BUYER.email).toUpperCase(),0,0);
+  document.getElementById("wm").style.backgroundImage=`url(${c.toDataURL()})`;
+}
+watermark();document.fonts&&document.fonts.ready.then(watermark);
+</script>
