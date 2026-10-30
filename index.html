@@ -7,12 +7,12 @@
 <title>The Holiday Edit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400&family=Hanken+Grotesk:wght@400;500;600&family=Syncopate:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Hanken+Grotesk:wght@400;500;600&family=Syncopate:wght@400&display=swap">
 <style>
 /* Layout: department-store editorial. Black masthead → intro → one section per look (outfit assembled on a body + copy + Shop the look) → shop drawer with product cards → stylist notes. White, black, one grey. */
 :root{
   --white:#FFFFFF; --ink:#0A0A0A; --grey:#6B6B6B; --tile:#F2F1EF; --line:#E2E2E2; --burnt:#8E2B1E;
-  --serif:"Newsreader","Tiempos Text",Georgia,serif;
+  --serif:"Josefin Sans","Futura","Helvetica Neue",sans-serif;
   --sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
   --mark:"Syncopate","Eurostile","Helvetica Neue",sans-serif;
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s6:24px;--s8:32px;--s12:48px;--s16:64px;--s24:96px;
@@ -21,11 +21,11 @@
 *{box-sizing:border-box}
 html,body{background:var(--white);color:var(--ink);overflow-x:hidden;overflow-x:clip}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;font-family:var(--serif);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--serif);font-weight:300;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
 body.locked{overflow:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
 .wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{margin:0;font-weight:400}
+h1,h2,h3{margin:0;font-weight:400;font-family:var(--mark);text-transform:uppercase;letter-spacing:.06em;text-wrap:balance}
 a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 :focus-visible{outline:1px solid currentColor;outline-offset:3px}
@@ -49,28 +49,45 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .heart[aria-pressed="true"]{color:var(--burnt)}
 .btn:hover{background:var(--burnt)}
 
-/* Cinematic: text mask hero */
-.mask{position:relative;height:230vh}
-.mask-sticky{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s8);padding-top:110px;text-align:center;overflow:hidden}
+/* Cinematic: text mask loader, plays once while the page opens */
+.loader{position:fixed;inset:0;z-index:50;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s6);padding:var(--s4);text-align:center;animation:loader-out .7s ease 2.3s forwards}
+.loader .mask-fill{animation:fill-in 1.5s cubic-bezier(.65,0,.35,1) .25s both}
+.loader .kicker{color:var(--burnt);animation:fade-in .6s ease 1.5s both}
+@keyframes fill-in{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes fade-in{from{opacity:0}}
+@keyframes loader-out{to{opacity:0;visibility:hidden}}
+html.loading,html.loading body{overflow:hidden}
 .mask-words{position:relative}
-.mask-text{font-family:var(--mark);font-weight:400;font-size:clamp(40px,10vw,150px);line-height:1.04;letter-spacing:.04em;text-transform:uppercase}
+.mask-text{font-family:var(--mark);font-weight:400;font-size:clamp(36px,9vw,130px);line-height:1.08;letter-spacing:.08em;text-transform:uppercase}
 .mask-text span{display:block}
 .mask-outline{color:transparent;-webkit-text-stroke:1px rgba(10,10,10,.28)}
 .mask-fill{position:absolute;inset:0;color:var(--ink)}
 .mask-fill span:last-child{color:var(--burnt)}
-.mask-sub .kicker{color:var(--burnt)}
-.mask-sub p{max-width:46ch;margin:var(--s3) auto 0;color:var(--grey)}
+
+/* Phone menu: slides in from the left */
+.menu-btn{display:none;width:40px;height:40px;align-items:center;color:var(--white)}
+.menu-btn svg{width:24px;height:24px}
+.menu{position:fixed;top:0;left:0;bottom:0;z-index:22;width:min(84vw,340px);background:var(--ink);color:var(--white);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + var(--s4)) var(--s6) calc(env(safe-area-inset-bottom,0px) + var(--s8)) max(var(--s6),env(safe-area-inset-left,0px));transform:translateX(-100%);visibility:hidden;transition:transform .5s cubic-bezier(.2,.7,.1,1),visibility 0s linear .5s}
+.menu.open{transform:none;visibility:visible;transition:transform .5s cubic-bezier(.2,.7,.1,1),visibility 0s}
+.menu-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:var(--s6);border-bottom:1px solid rgba(255,255,255,.15)}
+.menu-head .mark{font-size:13px}
+.menu-links{display:flex;flex-direction:column;gap:var(--s6);padding-block:var(--s8);flex:1;overflow-y:auto}
+.menu-links a{display:flex;flex-direction:column;gap:2px;text-decoration:none;font-family:var(--mark);font-size:17px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35}
+.menu-links a small{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a}
+.menu-links a.hot{color:#E0644F}
+.menu-foot{font-family:var(--sans);font-size:13px;color:#9a9a9a}
+@media (min-width:701px){.menu,#menu-scrim{display:none}}
 
 /* Cinematic: kinetic marquee */
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding-block:var(--s8)}
 .marquee-track{display:flex;width:max-content;will-change:transform}
-.marquee-track span{display:inline-flex;align-items:baseline;gap:var(--s4);padding-right:var(--s16);font-family:var(--serif);font-size:clamp(40px,6vw,88px);line-height:1;white-space:nowrap}
+.marquee-track span{display:inline-flex;align-items:baseline;gap:var(--s4);padding-right:var(--s16);font-family:var(--mark);font-size:clamp(26px,4vw,56px);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
 .marquee-track small{font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--burnt)}
 
 /* Cinematic: stacked stylist notes */
 .stack{max-width:760px;margin:0 auto}
 .stack-card{position:sticky;top:calc(130px + var(--i) * 18px);min-height:300px;padding:var(--s12) var(--s8);margin-bottom:var(--s8);display:flex;flex-direction:column;justify-content:flex-end;gap:var(--s3);transform-origin:top center;box-shadow:0 20px 60px rgba(0,0,0,.08)}
-.stack-card h3{font-size:clamp(32px,4vw,48px);line-height:1.05}
+.stack-card h3{font-size:clamp(20px,2.6vw,30px);line-height:1.2}
 .stack-card p{margin:0;font-size:18px;max-width:40ch}
 .stack-card:nth-child(1){background:var(--ink);color:var(--white)}
 .stack-card:nth-child(2){background:var(--burnt);color:var(--white)}
@@ -84,7 +101,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 /* Intro */
 .intro{text-align:center;padding-block:var(--s16) var(--s12);border-bottom:1px solid var(--line)}
 .intro .kicker{color:var(--grey)}
-.intro h1{font-size:clamp(44px,6vw,72px);line-height:1.05;margin-top:var(--s4)}
+.intro h1{font-size:clamp(26px,3.6vw,46px);line-height:1.2;margin-top:var(--s4)}
 .intro p{max-width:52ch;margin:var(--s6) auto 0}
 
 /* Looks */
@@ -94,7 +111,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .figure.in{opacity:1}
 .figure img{position:absolute;height:auto;filter:drop-shadow(0 10px 12px rgba(0,0,0,.08))}
 .look-copy .kicker{color:var(--grey)}
-.look-copy h2{font-size:clamp(48px,5.4vw,72px);line-height:1;margin-top:var(--s4)}
+.look-copy h2{font-size:clamp(26px,3vw,40px);line-height:1.15;margin-top:var(--s4)}
 .look-copy p{margin:var(--s6) 0 var(--s8);max-width:36ch}
 .look-copy .count{display:block;margin-top:var(--s4);font-family:var(--sans);font-size:14px;color:var(--grey)}
 
@@ -106,7 +123,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .drawer-body{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .drawer-head{display:flex;justify-content:space-between;align-items:start;gap:var(--s4);padding:var(--s8) var(--s8) var(--s6);border-bottom:1px solid var(--line)}
 .drawer-head .kicker{color:var(--grey)}
-.drawer-head h2{font-size:40px;line-height:1.05;margin-top:var(--s2)}
+.drawer-head h2{font-size:26px;line-height:1.2;margin-top:var(--s2)}
 .close{width:40px;height:40px;display:grid;place-items:center;flex:none}
 .close svg{width:22px;height:22px}
 .drawer-body{overflow-y:auto;padding:var(--s8);flex:1}
@@ -145,25 +162,21 @@ footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:
 @media (max-width:700px){
   body{font-size:16px}
   .mast-row{grid-template-columns:1fr auto 1fr;padding-block:var(--s4) var(--s3)}
-  .mast-row .who{display:none}
+  .mast-row .who,.nav{display:none}
+  .menu-btn{display:inline-flex;grid-column:1;justify-self:start}
   .mark{grid-column:2}
   .saved{grid-column:3}
   .mark{font-size:14px;letter-spacing:.12em;text-align:center}
-  .nav{justify-content:flex-start;gap:var(--s6);padding-bottom:var(--s3);scroll-padding-inline:16px}
-  .nav a{font-size:14px}
-  .mask{height:200vh}
-  .mask-sticky{padding-top:64px;gap:var(--s6)}
-  .mask-sub p{font-size:15px}
-  .mask-text{font-size:12.5vw}
+  .mask-text{font-size:11.5vw}
   .marquee{padding-block:var(--s6)}
   .stack-card{top:calc(24px + var(--i) * 12px);min-height:240px;padding:var(--s8) var(--s6)}
   .stack-card p{font-size:16px}
   .intro{padding-block:var(--s12) var(--s8)}
-  .intro h1{font-size:40px}
+  .intro h1{font-size:24px}
   .intro p{font-size:16px}
   .look{padding-block:var(--s12);gap:var(--s6);scroll-margin-top:16px}
   .figure{max-width:none;width:100%}
-  .look-copy h2{font-size:44px}
+  .look-copy h2{font-size:24px}
   .look-copy p{margin:var(--s4) 0 var(--s6)}
   .look-copy .count{text-align:center}
   .notes{padding-block:var(--s12) var(--s16);scroll-margin-top:16px}
@@ -171,7 +184,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:
   .btn{width:100%;min-width:0}
   footer .wrap{flex-direction:column;gap:var(--s1)}
   .drawer-head{padding:var(--s4) var(--s4) var(--s4)}
-  .drawer-head h2{font-size:32px}
+  .drawer-head h2{font-size:19px}
   .drawer-body{padding:var(--s4) var(--s4) var(--s12)}
   .cards{gap:var(--s8) var(--s3)}
   .card .quick{opacity:1;font-size:13px;padding:var(--s2);left:var(--s2);right:var(--s2);bottom:var(--s2)}
@@ -182,13 +195,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important}
   .figure{opacity:1}
+  .loader{display:none}
 }
 </style>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="mask-words">
+    <div class="mask-text mask-outline"><span>The</span><span>Holiday</span><span>Edit</span></div>
+    <div class="mask-text mask-fill"><span>The</span><span>Holiday</span><span>Edit</span></div>
+  </div>
+  <span class="kicker">Holiday 2026</span>
+</div>
+<script>document.documentElement.classList.add("loading")</script>
 
 <div id="wm" aria-hidden="true"></div>
 
 <header class="mast">
   <div class="wrap mast-row">
+    <button class="menu-btn" id="menu-open" aria-label="Open menu" aria-controls="menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 8h18M3 16h18"/></svg></button>
     <span class="who">Private copy for Ana Torres</span>
     <span class="mark">The Holiday Edit</span>
     <span class="saved" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span id="saved-count">0</span></span>
@@ -196,18 +220,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:
   <nav class="wrap nav" id="nav" aria-label="Looks"></nav>
 </header>
 
+<div class="scrim" id="menu-scrim"></div>
+<aside class="menu" id="menu" aria-label="Menu" aria-hidden="true">
+  <div class="menu-head"><span class="mark">The Holiday Edit</span>
+    <button class="close" id="menu-close" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+  <nav class="menu-links" id="menu-links"></nav>
+  <span class="menu-foot">Private copy for Ana Torres</span>
+</aside>
+
 <main>
-  <section class="mask" aria-label="The Holiday Edit">
-    <div class="mask-sticky wrap">
-      <div class="mask-words">
-        <h1 class="mask-text mask-outline" aria-hidden="true"><span>The</span><span>Holiday</span><span>Edit</span></h1>
-        <h1 class="mask-text mask-fill"><span>The</span><span>Holiday</span><span>Edit</span></h1>
-      </div>
-      <div class="mask-sub">
-        <span class="kicker">Holiday 2026 · Four nights, four looks</span>
-        <p>Every outfit is put together piece by piece. Open Shop the look to see and buy each one.</p>
-      </div>
-    </div>
+  <section class="wrap intro">
+    <span class="kicker">Holiday 2026</span>
+    <h1>Four nights, four looks</h1>
+    <p>Every outfit is put together piece by piece. Open Shop the look to see and buy each one.</p>
   </section>
   <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
   <div class="wrap" id="looks"></div>
@@ -262,6 +287,24 @@ const go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 const nav=document.getElementById("nav");
 nav.innerHTML=LOOKS.map(l=>`<a href="#${l.id}">${l.name}</a>`).join("")+`<a class="hot" href="#notes">Stylist notes</a>`;
 nav.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();go(a.getAttribute("href").slice(1))});
+
+/* Phone menu */
+const menu=document.getElementById("menu"),menuScrim=document.getElementById("menu-scrim"),menuBtn=document.getElementById("menu-open");
+document.getElementById("menu-links").innerHTML=LOOKS.map(l=>`<a href="#${l.id}"><small>${l.date}</small>${l.name}</a>`).join("")+`<a class="hot" href="#notes"><small>The rules</small>Stylist notes</a>`;
+function openMenu(){document.querySelector(".mast").classList.remove("hide");menu.classList.add("open");menuScrim.classList.add("open");menu.setAttribute("aria-hidden","false");menuBtn.setAttribute("aria-expanded","true");document.body.classList.add("locked");setTimeout(()=>document.getElementById("menu-close").focus(),50)}
+function closeMenu(){menu.classList.remove("open");menuScrim.classList.remove("open");menu.setAttribute("aria-hidden","true");menuBtn.setAttribute("aria-expanded","false");document.body.classList.remove("locked")}
+menuBtn.onclick=openMenu;document.getElementById("menu-close").onclick=closeMenu;menuScrim.onclick=closeMenu;
+document.getElementById("menu-links").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();closeMenu();setTimeout(()=>go(a.getAttribute("href").slice(1)),350)});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&menu.classList.contains("open"))closeMenu()});
+
+/* Loader: hand the page back once the name has filled in */
+(function(){
+  const loader=document.getElementById("loader"),root=document.documentElement;
+  const finish=()=>{root.classList.remove("loading");loader.remove()};
+  if(getComputedStyle(loader).display==="none")return finish();
+  loader.addEventListener("animationend",e=>{if(e.animationName==="loader-out")finish()});
+  setTimeout(()=>{if(document.body.contains(loader))finish()},4000);
+})();
 
 /* Looks: outfit assembled on a body */
 document.getElementById("looks").innerHTML=LOOKS.map((l,i)=>`
@@ -345,12 +388,6 @@ watermark();document.fonts&&document.fonts.ready.then(watermark);
   track.innerHTML=unit+unit;
   if(!window.gsap||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   gsap.registerPlugin(ScrollTrigger);
-
-  /* Text mask: the name fills in as you scroll */
-  gsap.fromTo(".mask-fill",{clipPath:"inset(100% 0 0 0)"},{clipPath:"inset(0% 0 0 0)",ease:"none",
-    scrollTrigger:{trigger:".mask",start:"top top",end:"55% bottom",scrub:.3}});
-  gsap.fromTo(".mask-sub",{opacity:0,y:16},{opacity:1,y:0,ease:"none",
-    scrollTrigger:{trigger:".mask",start:"35% top",end:"55% top",scrub:true}});
 
   /* Kinetic marquee: drifts, speeds up with scroll velocity */
   let x=0,vel=0;
