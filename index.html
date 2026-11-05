@@ -441,7 +441,7 @@ const OCC=[
  {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1793890659";
+const V="1793890803";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -453,9 +453,9 @@ const go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
 
 /* Nav + phone menu */
 const nav=document.getElementById("nav");
-nav.innerHTML=`<a href="#home">All looks</a>`+OCC.map(o=>`<a href="#${o.id}">${o.name}</a>`).join("")+`<a class="hot" href="#shop">View by product</a>`;
+nav.innerHTML=`<a class="hot" href="#home">All looks</a>`+OCC.map(o=>`<a href="#${o.id}">${o.name}</a>`).join("")+`<a class="hot" href="#shop">View by product</a>`;
 const menu=document.getElementById("menu"),menuScrim=document.getElementById("menu-scrim"),menuBtn=document.getElementById("menu-open");
-document.getElementById("menu-links").innerHTML=`<a href="#home"><small>${LOOKS.length} looks</small>All looks</a>`+OCC.map(o=>`<a href="#${o.id}"><small>${looksLabel(o.looks.length)}</small>${o.name}</a>`).join("")+`<a class="hot" href="#shop"><small>Tops, bags, shoes</small>View by product</a><a href="#notes"><small>The rules</small>Stylist notes</a>`;
+document.getElementById("menu-links").innerHTML=`<a class="hot" href="#home"><small>${LOOKS.length} looks</small>All looks</a>`+OCC.map(o=>`<a href="#${o.id}"><small>${looksLabel(o.looks.length)}</small>${o.name}</a>`).join("")+`<a class="hot" href="#shop"><small>Tops, bags, shoes</small>View by product</a><a href="#notes"><small>The rules</small>Stylist notes</a>`;
 function openMenu(){document.querySelector(".mast").classList.remove("hide");menu.classList.add("open");menuScrim.classList.add("open");menu.setAttribute("aria-hidden","false");menuBtn.setAttribute("aria-expanded","true");document.body.classList.add("locked");setTimeout(()=>document.getElementById("menu-close").focus(),50)}
 function closeMenu(){menu.classList.remove("open");menuScrim.classList.remove("open");menu.setAttribute("aria-hidden","true");menuBtn.setAttribute("aria-expanded","false");document.body.classList.remove("locked")}
 menuBtn.onclick=openMenu;document.getElementById("menu-close").onclick=closeMenu;menuScrim.onclick=closeMenu;
