@@ -44,8 +44,8 @@ a{color:inherit}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 :focus-visible{outline:1px solid currentColor;outline-offset:3px}
 .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--burnt)}
-.btn{display:inline-flex;justify-content:center;align-items:center;min-width:240px;padding:var(--s4) var(--s8);background:var(--ink);color:var(--white);font-family:var(--sans);font-size:15px;text-decoration:none;transition:background .3s}
-.btn:hover{background:var(--burnt)}
+.btn{display:inline-flex;justify-content:center;align-items:center;min-width:240px;padding:var(--s4) var(--s8);background:var(--burnt);color:var(--white);font-family:var(--sans);font-size:15px;text-decoration:none;transition:background .3s}
+.btn:hover{background:var(--ink)}
 
 /* Masthead */
 .mast{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;width:100%;background:var(--ink);color:var(--white);transition:transform .35s ease}
@@ -441,7 +441,7 @@ const OCC=[
  {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1793890803";
+const V="1793891357";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
