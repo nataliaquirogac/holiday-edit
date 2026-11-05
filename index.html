@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Hanken+Grotesk:wght@400;500;600&family=Syncopate:wght@400&display=swap">
 <style>
-/* Layout: department-store editorial, scrolled. Black masthead → intro → marquee → one block per occasion (outfit of loose transparent pieces + copy + Shop the look) → View by product (category tabs, product grid) → stylist notes → shop drawer. White, black, one grey, burnt red. */
+/* Layout: department-store editorial, scrolled. Black masthead → magazine intro (welcome, FYI, pattern & colour cheat sheet, staples) → one block per occasion (outfit of loose transparent pieces + copy + Shop the look) → View by product (category tabs, product grid) → stylist notes → shop drawer. White, black, one grey, burnt red. */
 :root{
   --white:#FFFFFF; --ink:#0A0A0A; --grey:#6B6B6B; --tile:#F4F1EB; --line:#E2E2E2; --burnt:#8E2B1E;
   --serif:"Josefin Sans","Futura","Helvetica Neue",sans-serif;
@@ -90,19 +90,56 @@ html.loading,html.loading body{overflow:hidden}
 .menu-foot{font-size:14px}
 @media (min-width:701px){.menu,#menu-scrim{display:none}}
 
-/* Intro */
-.intro{text-align:center;padding-block:var(--s16) var(--s12)}
-.intro h1{font-size:clamp(30px,5vw,68px);line-height:1.1;margin-top:var(--s4)}
-.intro h1 span{color:var(--burnt)}
-.intro p{max-width:46ch;margin:var(--s6) auto 0;font-size:19px}
-.intro .by{display:block;margin-top:var(--s6);font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+/* Home intro, magazine style: welcome, FYI, pattern & colour cheat sheet, staples, then "put it together" */
+.home-only{scroll-margin-top:120px}
+.welcome{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--s12);align-items:center;min-height:calc(100svh - 120px);padding-block:var(--s12)}
+.welcome h1{font-size:clamp(40px,5.6vw,88px);line-height:1.04;letter-spacing:.08em;margin-top:var(--s4)}
+.welcome h1 span{display:block}.welcome h1 span:last-child{color:var(--burnt)}
+.welcome .letter{margin-top:var(--s8);max-width:38ch;font-size:19px;line-height:1.6}
+.welcome .letter p{margin:0 0 var(--s4)}
+.welcome .letter strong{font-weight:400;font-family:var(--sans);letter-spacing:.02em}
+.welcome .sig{font-family:var(--mark);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--burnt)}
+.welcome .by{display:block;margin-top:var(--s6);font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
+.heart-red{color:var(--burnt)}
+.collage{position:relative;aspect-ratio:1/1;max-height:78svh;width:100%;justify-self:center}
+.collage img{position:absolute;filter:drop-shadow(0 12px 16px rgba(0,0,0,.08));opacity:0;animation:land 1.2s cubic-bezier(.2,.7,.1,1) forwards,breathe 6s ease-in-out infinite alternate}
+@keyframes land{from{opacity:0;transform:translate3d(var(--dx,0),-70px,0) rotate(var(--r,-4deg))}to{opacity:1;transform:none}}
+@keyframes breathe{from{translate:0 0}to{translate:0 -6px}}
+.fyi{display:grid;grid-template-columns:auto 1fr;gap:var(--s12);padding-block:var(--s16);border-block:1px solid var(--line)}
+.fyi h2,.sheet h2,.staples h2{font-size:clamp(28px,3.6vw,52px);line-height:1.05;color:var(--burnt)}
+.fyi .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s8)}
+.fyi p{margin:0;font-size:17px;line-height:1.6}
+.fyi p em{font-style:normal;font-family:var(--sans);font-weight:600;letter-spacing:.01em}
+.sheet{padding-block:var(--s16)}
+.sheet h2 span,.staples h2 span{color:var(--ink)}
+.sheet .grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s12);margin-top:var(--s12)}
+.sheet h3{font-size:14px;letter-spacing:.2em;margin-bottom:var(--s6)}
+.pair{display:flex;align-items:center;gap:var(--s4);padding-block:var(--s3);border-top:1px solid var(--line)}
+.pair:last-child{border-bottom:1px solid var(--line)}
+.pair .sw{width:56px;height:56px;flex:none;background-size:cover;background-position:center}
+.pair .sw+.sw{margin-left:calc(var(--s2) * -1)}
+.pair b{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-left:var(--s3)}
+.pair small{display:block;font-family:var(--serif);font-size:15px;letter-spacing:0;text-transform:none;color:var(--grey);margin-top:2px;font-weight:300}
+.staples{padding-block:var(--s16);border-top:1px solid var(--line)}
+.staples .lead{max-width:56ch;font-size:18px;margin:var(--s6) 0 0}
+.st-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s12) var(--s8);margin-top:var(--s12)}
+.st .ph{display:block;aspect-ratio:1/1;background:var(--tile);position:relative;overflow:hidden}
+.st .ph img{position:absolute;top:10%;left:14%;width:72%;height:80%;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.08))}
+.st h3{font-size:16px;letter-spacing:.1em;margin-top:var(--s4)}
+.st p{margin:var(--s2) 0 0;font-size:16px;line-height:1.5;color:#333;max-width:34ch}
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1);transition-delay:calc(var(--d,0) * 70ms)}
+.js .rv.in{opacity:1;transform:none}
 
-/* Kinetic marquee */
-.marquee{overflow:hidden;border-block:1px solid var(--line);padding-block:var(--s8)}
-.marquee-track{display:flex;width:max-content;will-change:transform}
-.marquee-track span{display:inline-flex;align-items:baseline;gap:var(--s4);padding-right:var(--s16);font-family:var(--mark);font-size:clamp(26px,4vw,56px);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
-.marquee-track small{font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--burnt)}
-
+/* Intro: white like the looks, empty photo slot until the real photo arrives, round swatches */
+.photo-slot{display:grid;place-items:center;width:100%;aspect-ratio:4/5;max-height:78svh;background:var(--tile);font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
+.pair .sw{border-radius:50%;box-shadow:0 0 0 2px var(--white),inset 0 0 0 1px rgba(10,10,10,.12)}
+}
+.together{padding-block:var(--s24) var(--s16);text-align:center;overflow:hidden}
+.together .mask-words{display:inline-block}
+.together .mask-text{font-size:clamp(30px,6vw,96px);letter-spacing:.06em}
+.together .mask-fill{clip-path:inset(0 100% 0 0)}
+.together .mask-fill span:last-child{color:var(--burnt)}
+.together .kicker{display:block;margin-top:var(--s6);color:var(--grey)}
 /* Occasions and looks */
 .occ{border-bottom:1px solid var(--line);scroll-margin-top:120px}
 .occ-head{text-align:center;padding-top:var(--s16)}
@@ -127,7 +164,7 @@ html.loading,html.loading body{overflow:hidden}
 .back::before{content:"← "}
 .back:hover{color:var(--ink)}
 .nav a.on{border-color:currentColor}
-#view-looks[data-occ] .intro,#view-looks[data-occ] .marquee,#view-looks[data-occ] .notes,#view-looks[data-occ] .occ:not(.cur){display:none}
+#view-looks[data-occ] .home-only,#view-looks[data-occ] .notes,#view-looks[data-occ] .occ:not(.cur){display:none}
 #view-looks[data-occ] .occ{border-bottom:0}
 .occ-back{display:none}
 #view-looks[data-occ] .occ-back{display:table;margin:0 auto var(--s8)}
@@ -196,7 +233,7 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
 /* Personal watermark */
 #wm{position:fixed;inset:0;pointer-events:none;z-index:30;opacity:.07;background-repeat:repeat}
 
-@media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:1000px){.st-grid{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:900px){
   .look{grid-template-columns:1fr;gap:var(--s8)}
   .look:nth-child(even of .look) .fig-wrap{order:0}
@@ -210,10 +247,22 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   .mark{grid-column:2;font-size:14px;letter-spacing:.12em;text-align:center}
   .saved{grid-column:3}
   .mask-text{font-size:11.5vw}
-  .intro{padding-block:var(--s12) var(--s8)}
-  .intro h1{font-size:30px}
-  .intro p{font-size:16px}
-  .marquee{padding-block:var(--s6)}
+  .welcome{grid-template-columns:1fr;min-height:0;gap:var(--s6);padding-block:var(--s6) var(--s12)}
+  .welcome .photo-slot{order:-1;max-height:none}
+  .welcome h1{font-size:40px}
+  .welcome .letter{font-size:16px;margin-top:var(--s6)}
+  .fyi{grid-template-columns:1fr;gap:var(--s6);padding-block:var(--s12)}
+  .fyi .cols{grid-template-columns:1fr;gap:var(--s4)}
+  .fyi p{font-size:16px}
+  .sheet,.staples{padding-block:var(--s12)}
+  .sheet .grid2{grid-template-columns:1fr;gap:var(--s8);margin-top:var(--s8)}
+  .pair .sw{width:48px;height:48px}
+  .st-grid{grid-template-columns:repeat(2,1fr);gap:var(--s8) var(--s3);margin-top:var(--s8)}
+  .st h3{font-size:12px}
+  .st p{font-size:14px}
+  .staples .lead{font-size:16px}
+  .together{padding-block:var(--s16) var(--s12)}
+  .together .mask-text{font-size:9vw}
   .occ,.notes{scroll-margin-top:16px}
   .occ-head{padding-top:var(--s12)}
   .occ-head h2,.shop-head h2{font-size:26px}
@@ -242,6 +291,7 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   .grid .card .from{font-size:10px}
 }
 @media (prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none}
   *,*::before,*::after{transition:none!important;animation:none!important}
   .loader{display:none}
 }
@@ -254,7 +304,7 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   </div>
   <span class="kicker">Winter 2026</span>
 </div>
-<script>document.documentElement.classList.add("loading")</script>
+<script>document.documentElement.classList.add("loading","js")</script>
 
 <div id="wm" aria-hidden="true"></div>
 
@@ -278,13 +328,48 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
 
 <main>
  <div id="view-looks">
-  <section class="wrap intro">
-    <span class="kicker">Winter 2026 · Mexico</span>
-    <h1>The Winter <span>Guide</span></h1>
-    <p id="intro-copy"></p>
-    <span class="by">Curated by Ericka Tamez &amp; Maria Tricio</span>
+  <div class="intro home-only" id="intro">
+  <section class="wrap welcome home-only" id="welcome">
+    <div class="copy">
+      <span class="kicker">Winter 2026 · Mexico</span>
+      <h1><span>The</span><span>Winter</span><span>Guide</span></h1>
+      <div class="letter">
+        <p><strong>Welcome!</strong> Thank you for buying The Winter Guide. We made it with so much love, and we can't wait to see how you wear it.</p>
+        <p>It took months of work, so please keep it just for you <span class="heart-red">&#9829;</span></p>
+        <span class="sig">Ericka &amp; Maria</span>
+      </div>
+      <span class="by">Curated by Ericka Tamez &amp; Maria Tricio</span>
+    </div>
+    <div class="photo-slot" aria-label="Photo coming soon"><span>Photo</span></div>
   </section>
-  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+  <section class="wrap fyi home-only">
+    <h2 class="rv">FYI</h2>
+    <div class="cols">
+      <p class="rv"><em>Sold out?</em> Write to us and we'll find you an alternative.</p>
+      <p class="rv">Most pieces are made to mix with each other, so you'll see some repeat. Every look has a base, plus layers you add or take off as the day goes.</p>
+      <p class="rv">Start with what's already in your closet. Then use the guide to fill the gaps.</p>
+    </div>
+  </section>
+  <section class="wrap sheet home-only" id="cheat-sheet">
+    <h2 class="rv">Pattern &amp; Color <span>Cheat Sheet</span></h2>
+    <div class="grid2">
+      <div><h3 class="rv">Patterns</h3><div class="pair rv"><span class="sw" style="background-image:url(img/sw-gingham.jpg?v=${V})"></span><span class="sw" style="background:#5A1F2B"></span><b>Gingham + Burgundy<small>First Lift</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-houndstooth.jpg?v=${V})"></span><span class="sw" style="background:#3A2621"></span><b>Houndstooth + Chocolate<small>Après Ski</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-medallion.jpg?v=${V})"></span><span class="sw" style="background:#1E2435"></span><b>Medallion + Navy<small>Silk Pyjamas</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-plaid.jpg?v=${V})"></span><span class="sw" style="background:#B3202A"></span><b>Flannel + Cherry<small>Coffee Run</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-zebra.jpg?v=${V})"></span><span class="sw" style="background:#7F93A6"></span><b>Zebra + Light denim<small>Velvet & Denim</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-stripe.jpg?v=${V})"></span><span class="sw" style="background:#141414"></span><b>Merlot stripe + Black leather<small>Long Lunch</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-leopard.jpg?v=${V})"></span><span class="sw" style="background-image:url(img/sw-tartan.jpg?v=${V})"></span><b>Leopard + Tartan<small>Two prints, one palette</small></b></div></div>
+      <div><h3 class="rv">Colors</h3><div class="pair rv"><span class="sw" style="background:#5A1F2B"></span><span class="sw" style="background:#3A2621"></span><b>Burgundy + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#025A5F"></span><span class="sw" style="background:#E6DCC6"></span><b>Teal + Cream</b></div><div class="pair rv"><span class="sw" style="background:#4A4A2E"></span><span class="sw" style="background:#3A2621"></span><b>Olive + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#B00314"></span><span class="sw" style="background:#141414"></span><b>Cherry + Black</b></div><div class="pair rv"><span class="sw" style="background:#E6DACB"></span><span class="sw" style="background:#D79F9A"></span><b>Ivory + Blush</b></div><div class="pair rv"><span class="sw" style="background:#8B4A1E"></span><span class="sw" style="background:#4A4A30"></span><b>Rust + Olive</b></div><div class="pair rv"><span class="sw" style="background:#3B2D73"></span><span class="sw" style="background:#141414"></span><b>Purple + Black</b></div><div class="pair rv"><span class="sw" style="background:#02465F"></span><span class="sw" style="background:#3A2621"></span><b>Deep teal + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#7E232C"></span><span class="sw" style="background:#BDBAB4"></span><b>Merlot + Grey</b></div></div>
+    </div>
+  </section>
+  <section class="wrap staples home-only" id="staples">
+    <h2 class="rv">Staples</h2>
+    <p class="lead rv">The pieces every look is built on. Chances are some are already in your closet: check there first, then fill in the blanks.</p>
+    <div class="st-grid"><div class="st rv"><span class="ph"><img src="img/c07-coat.webp?v=${V}" alt="" loading="lazy"></span><h3>The coat</h3><p>One coat carries the season. Leopard, velvet or long black wool: pick one and wear it with everything.</p></div><div class="st rv"><span class="ph"><img src="img/c01-sweater.webp?v=${V}" alt="" loading="lazy"></span><h3>The cozy knit</h3><p>A turtleneck or a soft crewneck. Black, grey and cream never fail, but try burgundy or chocolate.</p></div><div class="st rv"><span class="ph"><img src="img/c20-tee.webp?v=${V}" alt="" loading="lazy"></span><h3>The base layer</h3><p>A white tee, a ribbed tank, a long-sleeve stripe. We never pack without them.</p></div><div class="st rv"><span class="ph"><img src="img/c14-jeans.webp?v=${V}" alt="" loading="lazy"></span><h3>Below the waist</h3><p>Straight jeans are non-negotiable. Then add one colour: red cord, purple velour or a printed trouser.</p></div><div class="st rv"><span class="ph"><img src="img/c18-booties.webp?v=${V}" alt="" loading="lazy"></span><h3>Walk the walk</h3><p>One shoe for day, one for after dark. Knee boots, ballet flats and a single statement heel.</p></div><div class="st rv"><span class="ph"><img src="img/c10-bag.webp?v=${V}" alt="" loading="lazy"></span><h3>Cherry on top</h3><p>One statement per look: a beaded bag, pearl earrings or a fur stole. Never all three.</p></div></div>
+  </section>
+  <section class="together home-only" aria-label="Now let's put it together">
+    <div class="mask-words">
+      <div class="mask-text mask-outline"><span>Now let's put </span><span>it together</span></div>
+      <div class="mask-text mask-fill" id="together-fill"><span>Now let's put </span><span>it together</span></div>
+    </div>
+    <span class="kicker">Scroll for the looks</span>
+  </section>
+  </div>
   <div id="looks"></div>
   <section class="wrap notes" id="notes">
     <span class="kicker">Stylist notes</span>
@@ -356,7 +441,7 @@ const OCC=[
  {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1793855040";
+const V="1793890659";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -365,7 +450,6 @@ let saved={};try{saved=JSON.parse(localStorage.getItem("wg-saved")||"{}")}catch(
 const countEl=document.getElementById("saved-count");
 const updateCount=()=>countEl.textContent=Object.values(saved).filter(Boolean).length;
 const go=id=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
-document.getElementById("intro-copy").textContent=`${LOOKS.length} looks for every plan of the season. Open Shop the look, or browse every piece by category.`;
 
 /* Nav + phone menu */
 const nav=document.getElementById("nav");
@@ -501,24 +585,24 @@ function watermark(){
 watermark();document.fonts&&document.fonts.ready.then(watermark);
 route(location.hash.slice(1)||"home",false);
 
+/* Intro reveals: each .rv rises in when it reaches the screen, siblings a beat apart */
+(function(){
+  const els=[...document.querySelectorAll(".rv")];
+  els.forEach(e=>e.style.setProperty("--d",[...e.parentNode.children].filter(c=>c.classList.contains("rv")).indexOf(e)%8));
+  if(!("IntersectionObserver" in window))return els.forEach(e=>e.classList.add("in"));
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}}),{rootMargin:"0px 0px -8% 0px"});
+  els.forEach(e=>io.observe(e));
+})();
+
 /* Cinematic modules (scroll-driven only) */
 (function(){
-  const track=document.getElementById("marquee");
-  const unit=OCC.map(o=>`<span>${o.name}<small>${looksLabel(o.looks.length)}</small></span>`).join("");
-  track.innerHTML=unit+unit;
   const figs=[...document.querySelectorAll(".fig")];
-  if(!window.gsap||matchMedia("(prefers-reduced-motion: reduce)").matches){figs.forEach(f=>f.classList.add("settled"));return}
+  if(!window.gsap||matchMedia("(prefers-reduced-motion: reduce)").matches){figs.forEach(f=>f.classList.add("settled"));document.getElementById("together-fill").style.clipPath="none";return}
   gsap.registerPlugin(ScrollTrigger);
 
-  /* Kinetic marquee: drifts, speeds up with scroll velocity */
-  let x=0,vel=0;
-  ScrollTrigger.create({onUpdate:s=>{vel=s.getVelocity()}});
-  gsap.ticker.add(()=>{
-    const half=track.scrollWidth/2;
-    x-=0.5+Math.min(Math.abs(vel)*0.004,14);vel*=0.92;
-    if(-x>=half)x+=half;
-    track.style.transform=`translate3d(${x}px,0,0)`;
-  });
+  /* "Now let's put it together" fills in left to right with the scroll */
+  gsap.fromTo("#together-fill",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",ease:"none",
+    scrollTrigger:{trigger:".together",start:"top 80%",end:"center 45%",scrub:.6}});
 
   /* Pieces fly in one by one as the outfit scrolls in, then breathe */
   figs.forEach(f=>{
@@ -533,4 +617,5 @@ route(location.hash.slice(1)||"home",false);
   cards.forEach((c,i)=>{if(i<cards.length-1)gsap.fromTo(c,{scale:1,filter:"brightness(1)"},{scale:.94,filter:"brightness(.92)",ease:"none",
     scrollTrigger:{trigger:cards[i+1],start:"top 85%",end:"top 25%",scrub:true}})});
 })();
+
 </script>
