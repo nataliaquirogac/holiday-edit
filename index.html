@@ -340,6 +340,8 @@ const OCC=[
  {"title":"The Leopard Coat","n":20,"copy":"Leopard, a white tee and washed purple denim.","ar":0.8256,"pieces":[["c07-coat",1.15,11.33,35.95],["p20-jeans",39.04,33.74,29.45],["p20-sweater",63.24,0.0,36.76],["p20-tee",36.07,4.34,34.93],["p20-tote",3.2,71.44,35.16],["p20-boots",69.41,79.55,26.03]],"items":[["c07-coat","Toteme","Long pony hair coat","https://go.shopmy.us/p-100137811","Outerwear"],["p20-tee","Éterne","Short sleeve boxy tee","https://go.shopmy.us/p-100141922","Tops"],["p20-sweater","Tnuck","Genevieve cashmere crewneck","https://go.shopmy.us/p-100142285","Tops"],["p20-jeans","EB Denim","Maria low-rise bootcut jeans","https://go.shopmy.us/p-100138238","Bottoms"],["p20-tote","Kallmeyer","Driving bag in leather","https://go.shopmy.us/p-100147469","Bags"],["p20-boots","Proenza Schouler","Trap ankle boots","https://go.shopmy.us/p-100137715","Shoes"]]},
  {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
+/* bumped on every build so phones never show a stale photo */
+const V="1793854376";
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
 const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
@@ -387,7 +389,7 @@ addEventListener("popstate",()=>route(location.hash.slice(1),false));
 
 /* Occasions, each with its looks: loose pieces laid out as the stylist placed them + copy + Shop the look */
 const brands=l=>[...new Set(l.items.map(it=>it[1]).filter(Boolean))].join(" · ");
-const fig=(l,i)=>`<div class="fig" data-i="${i}" role="button" tabindex="0" aria-label="Shop this ${l.occ} look" style="aspect-ratio:${l.ar};${l.ar>.8?"width:100%":"height:100%"}">${l.pieces.map(([img,x,y,w],k)=>`<span class="pc" style="left:${x}%;top:${y}%;width:${w}%;--k:${k}"><img src="img/${img}.webp" alt="" decoding="async"></span>`).join("")}</div>`;
+const fig=(l,i)=>`<div class="fig" data-i="${i}" role="button" tabindex="0" aria-label="Shop this ${l.occ} look" style="aspect-ratio:${l.ar};${l.ar>.8?"width:100%":"height:100%"}">${l.pieces.map(([img,x,y,w],k)=>`<span class="pc" style="left:${x}%;top:${y}%;width:${w}%;--k:${k}"><img src="img/${img}.webp?v=${V}" alt="" decoding="async"></span>`).join("")}</div>`;
 const looksEl0=document.getElementById("looks");
 looksEl0.innerHTML=OCC.map((o,oi)=>`
   <section class="occ" id="${o.id}">
@@ -405,7 +407,7 @@ looksEl0.addEventListener("click",e=>{const a=e.target.closest(".occ-next a,.occ
 /* Product card, shared by the drawer and View by product */
 const card=([img,brand,desc,url],key,extra="")=>`
     <${url?`a class="card" href="${url}" target="_blank" rel="noopener sponsored"`:`div class="card soon"`}>
-      <span class="ph"><img src="img/${img}.webp" alt="${desc}" loading="lazy">
+      <span class="ph"><img src="img/${img}.webp?v=${V}" alt="${desc}" loading="lazy">
         <button class="heart" aria-label="Save ${desc}" aria-pressed="${!!saved[key]}" data-key="${key}">${heart}</button>
         <span class="quick">${url?"Shop now":"Link coming soon"}</span></span>
       <span class="brand">${brand||"&nbsp;"}</span><span class="desc">${desc}</span>${extra}
