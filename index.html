@@ -46,6 +46,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .kicker{font-family:var(--sans);font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--burnt)}
 .btn{display:inline-flex;justify-content:center;align-items:center;min-width:240px;padding:var(--s4) var(--s8);background:var(--burnt);color:var(--white);font-family:var(--sans);font-size:15px;text-decoration:none;transition:background .3s}
 .btn:hover{background:var(--ink)}
+.btn-dark{background:var(--ink)}
+.btn-dark:hover{background:var(--burnt)}
 
 /* Masthead */
 .mast{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;width:100%;background:var(--ink);color:var(--white);transition:transform .35s ease}
@@ -93,10 +95,12 @@ html.loading,html.loading body{overflow:hidden}
 /* Home intro, magazine style: welcome, FYI, pattern & colour cheat sheet, staples, then "put it together" */
 .home-only{scroll-margin-top:120px}
 .welcome{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--s12);align-items:center;min-height:calc(100svh - 120px);padding-block:var(--s12)}
-.welcome h1{font-size:clamp(40px,5.6vw,88px);line-height:1.04;letter-spacing:.08em;margin-top:var(--s4)}
+.welcome h1{font-size:clamp(40px,5.6vw,88px);line-height:1.04;letter-spacing:.08em}
 .welcome h1 span{display:block}.welcome h1 span:last-child{color:var(--burnt)}
-.welcome .letter{margin-top:var(--s8);max-width:38ch;font-size:19px;line-height:1.6}
+.welcome .letter{margin-top:var(--s8);max-width:48ch;font-size:19px;line-height:1.6}
 .welcome .letter p{margin:0 0 var(--s4)}
+.welcome .letter .hook{font-family:var(--sans);font-weight:500;font-size:min(19px,3.4vw);letter-spacing:.01em;line-height:1.3;white-space:nowrap;max-width:none;color:var(--burnt);margin-bottom:var(--s6)}
+.welcome .letter .closing{margin:var(--s6) 0 var(--s2)}
 .welcome .letter strong{font-weight:400;font-family:var(--sans);letter-spacing:.02em}
 .welcome .sig{font-family:var(--mark);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--burnt)}
 .welcome .by{display:block;margin-top:var(--s6);font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
@@ -114,9 +118,12 @@ html.loading,html.loading body{overflow:hidden}
 .sheet h2 span,.staples h2 span{color:var(--ink)}
 .sheet .grid2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s12);margin-top:var(--s12)}
 .sheet h3{font-size:14px;letter-spacing:.2em;margin-bottom:var(--s6)}
+.sheet .pair+h3{margin-top:var(--s12)}
 .pair{display:flex;align-items:center;gap:var(--s4);padding-block:var(--s3);border-top:1px solid var(--line)}
 .pair:last-child{border-bottom:1px solid var(--line)}
-.pair .sw{width:56px;height:56px;flex:none;background-size:cover;background-position:center}
+.pair{--sw:56px}
+.pair .sws{display:flex;flex:none;width:calc(var(--sw) + (var(--n,1) - 1) * (var(--sw) - 8px))}
+.pair .sw{width:var(--sw);height:var(--sw);flex:none;background-size:cover;background-position:center}
 .pair .sw+.sw{margin-left:calc(var(--s2) * -1)}
 .pair b{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-left:var(--s3)}
 .pair small{display:block;font-family:var(--serif);font-size:15px;letter-spacing:0;text-transform:none;color:var(--grey);margin-top:2px;font-weight:300}
@@ -131,23 +138,38 @@ html.loading,html.loading body{overflow:hidden}
 .js .rv.in{opacity:1;transform:none}
 
 /* Intro: white like the looks, empty photo slot until the real photo arrives, round swatches */
-.photo-slot{display:grid;place-items:center;width:100%;aspect-ratio:4/5;max-height:78svh;background:var(--tile);font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
+.photo-slot{display:grid;place-items:center;justify-self:center;width:min(100%,400px);aspect-ratio:4/5;max-height:60svh;background:var(--tile);font-family:var(--sans);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey)}
 .pair .sw{border-radius:50%;box-shadow:0 0 0 2px var(--white),inset 0 0 0 1px rgba(10,10,10,.12)}
 }
-.together{padding-block:var(--s24) var(--s16);text-align:center;overflow:hidden}
+.together{padding:var(--s24) var(--s6) calc(var(--s24) + var(--s12));text-align:center;overflow:hidden}
+.together .mask-text{line-height:1.25}
 .together .mask-words{display:inline-block}
-.together .mask-text{font-size:clamp(30px,6vw,96px);letter-spacing:.06em}
+.together .mask-text{font-size:clamp(26px,5.2vw,96px);letter-spacing:.06em}
 .together .mask-fill{clip-path:inset(0 100% 0 0)}
 .together .mask-fill span:last-child{color:var(--burnt)}
-.together .kicker{display:block;margin-top:var(--s6);color:var(--grey)}
+.together .kicker{display:block;margin-top:var(--s12);color:var(--grey)}
 /* Occasions and looks */
-.occ{border-bottom:1px solid var(--line);scroll-margin-top:120px}
-.occ-head{text-align:center;padding-top:var(--s16)}
-.occ-head h2{font-size:clamp(28px,4vw,52px);line-height:1.15;margin-top:var(--s3)}
-.look{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--s16);align-items:center;padding-block:var(--s12) var(--s16)}
+.occ{scroll-margin-top:120px}
+/* Section opener: bold black rule across the page, then name + subtitle on white */
+.occ-head{--hb:var(--white);--hf:var(--ink);--hk:var(--burnt);--hs:#333;background:var(--hb);color:var(--hf);padding-block:var(--s24) var(--s8);border-top:3px solid var(--ink)}
+.occ-in{display:grid;grid-template-columns:1fr 1fr;gap:var(--s12);align-items:end}
+.occ-head .occ-back{grid-column:1/-1;color:inherit;opacity:.7;border-color:currentColor;margin-bottom:0}
+.occ-head .kicker{display:block;color:var(--hk)}
+.occ-head h2{margin-top:var(--s3);font-size:clamp(34px,4.6vw,68px);line-height:1.05}
+.occ-sub{margin:0;max-width:44ch;justify-self:end;font-size:19px;line-height:1.55;color:var(--hs)}
+/* Section title centred, magazine-cover style */
+.occ-in{grid-template-columns:1fr;justify-items:center;text-align:center;gap:var(--s4)}
+.occ-head h2{font-size:clamp(36px,5.4vw,80px)}
+.occ-head .occ-sub{justify-self:center;max-width:52ch;text-wrap:balance}
+@media (max-width:760px){.occ-head h2{font-size:30px}}
+.occ-t,.occ-sub{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+.occ-sub{transition-delay:.15s}
+.occ-head.in .occ-t,.occ-head.in .occ-sub,html:not(.js) .occ-t,html:not(.js) .occ-sub{opacity:1;transform:none}
+.look{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--s16);align-items:center;padding-block:var(--s8)}
 .look+.look{border-top:1px solid var(--line)}
 .look:nth-child(even of .look) .fig-wrap{order:2}
-.fig-wrap{display:flex;justify-content:center;align-items:center;width:100%;aspect-ratio:4/5;max-height:80vh;max-width:600px;justify-self:center}
+.fig-wrap{display:flex;justify-content:center;align-items:center;width:100%;aspect-ratio:4/5;max-height:calc(100svh - 190px);max-width:600px;justify-self:center;container-type:size}
+.fig{aspect-ratio:var(--ar);width:min(100cqw,calc(100cqh * var(--ar)))}
 .fig{position:relative;cursor:pointer}
 .fig .pc{position:absolute;display:block;will-change:transform}
 .fig .pc img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 12px rgba(0,0,0,.07))}
@@ -168,7 +190,7 @@ html.loading,html.loading body{overflow:hidden}
 #view-looks[data-occ] .occ{border-bottom:0}
 .occ-back{display:none}
 #view-looks[data-occ] .occ-back{display:table;margin:0 auto var(--s8)}
-#view-looks[data-occ] .occ-head{padding-top:var(--s8)}
+#view-looks[data-occ] .occ-head{padding-block:var(--s12) var(--s8);border-top:0}
 .occ-next{display:none}
 #view-looks[data-occ] .occ-next{display:flex;justify-content:space-between;gap:var(--s4);border-top:1px solid var(--line);padding-block:var(--s8) var(--s12)}
 .occ-next a{font-family:var(--mark);font-size:clamp(13px,1.4vw,17px);letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
@@ -194,6 +216,11 @@ html.loading,html.loading body{overflow:hidden}
 .card:hover .quick,.card:focus-visible .quick{opacity:1}
 .card.soon{cursor:default}
 .card.soon .quick{opacity:1;color:var(--grey)}
+.alt-btn{position:absolute;top:var(--s3);left:var(--s3);z-index:1;padding:6px 12px;background:var(--burnt);color:var(--white);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s}
+.alt-btn:hover{background:var(--ink)}
+.alt-btn[aria-pressed="true"]{background:var(--ink)}
+.alt-tag{display:block;margin-top:var(--s4);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--burnt)}
+.alt-tag+.brand{margin-top:var(--s1)}
 .heart{position:absolute;top:var(--s3);right:var(--s3);width:36px;height:36px;display:grid;place-items:center;z-index:1}
 .heart svg{width:21px;height:21px}
 .heart[aria-pressed="true"]{color:var(--burnt)}
@@ -248,7 +275,7 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   .saved{grid-column:3}
   .mask-text{font-size:11.5vw}
   .welcome{grid-template-columns:1fr;min-height:0;gap:var(--s6);padding-block:var(--s6) var(--s12)}
-  .welcome .photo-slot{order:-1;max-height:none}
+  .welcome .photo-slot{order:-1;width:min(72%,300px);max-height:none}
   .welcome h1{font-size:40px}
   .welcome .letter{font-size:16px;margin-top:var(--s6)}
   .fyi{grid-template-columns:1fr;gap:var(--s6);padding-block:var(--s12)}
@@ -256,21 +283,25 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   .fyi p{font-size:16px}
   .sheet,.staples{padding-block:var(--s12)}
   .sheet .grid2{grid-template-columns:1fr;gap:var(--s8);margin-top:var(--s8)}
-  .pair .sw{width:48px;height:48px}
+  .pair{--sw:48px}
   .st-grid{grid-template-columns:repeat(2,1fr);gap:var(--s8) var(--s3);margin-top:var(--s8)}
   .st h3{font-size:12px}
   .st p{font-size:14px}
   .staples .lead{font-size:16px}
-  .together{padding-block:var(--s16) var(--s12)}
-  .together .mask-text{font-size:9vw}
+  .together{padding-block:var(--s16) var(--s24);padding-inline:var(--s4)}
+  .together .mask-text{font-size:6.6vw}
   .occ,.notes{scroll-margin-top:16px}
-  .occ-head{padding-top:var(--s12)}
-  .occ-head h2,.shop-head h2{font-size:26px}
-  .look{padding-block:var(--s8) var(--s12);gap:var(--s6)}
-  .fig-wrap{max-width:none;max-height:none}
+  .occ-head{padding-block:var(--s16) var(--s6)}
+  .occ-in{grid-template-columns:1fr;gap:var(--s4)}
+  .occ-head h2{font-size:30px}
+  .shop-head h2{font-size:26px}
+  .occ-sub{justify-self:start;font-size:16px}
+  .look{display:flex;flex-direction:column;align-items:stretch;height:calc(100svh - 64px);min-height:520px;padding-block:var(--s4) var(--s6);gap:var(--s3)}
+  .fig-wrap{flex:1 1 0;min-height:0;aspect-ratio:auto;max-width:none;max-height:none}
+  .look-copy .count{display:none}
   .look-copy h3{font-size:21px}
-  .look-copy p{margin:var(--s3) 0;font-size:17px}
-  .look-copy .brands{margin-bottom:var(--s6)}
+  .look-copy p{margin:var(--s2) 0;font-size:16px;line-height:1.4}
+  .look-copy .brands{margin-bottom:var(--s4);line-height:1.6}
   .look-copy .count{text-align:center}
   .btn{width:100%;min-width:0}
   .shop{padding-block:var(--s6) var(--s12)}
@@ -331,14 +362,16 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   <div class="intro home-only" id="intro">
   <section class="wrap welcome home-only" id="welcome">
     <div class="copy">
-      <span class="kicker">Winter 2026 · Mexico</span>
       <h1><span>The</span><span>Winter</span><span>Guide</span></h1>
       <div class="letter">
-        <p><strong>Welcome!</strong> Thank you for buying The Winter Guide. We made it with so much love, and we can't wait to see how you wear it.</p>
-        <p>It took months of work, so please keep it just for you <span class="heart-red">&#9829;</span></p>
-        <span class="sig">Ericka &amp; Maria</span>
+        <p class="hook">We’ve been influencing purchases before it paid 😉</p>
+        <p><strong>Hiii bienvenida a tu winter guide!</strong> Somos Ericka y María: dos buyers que pasamos años eligiendo qué entraba a nuestras tiendas (y qué no), y ahora hacemos lo mismo para tu clóset.</p>
+        <p>Este no es un guide para comprarte un clóset nuevo. Es para comprar menos y mejor: piezas que se hablan entre sí y con lo que ya tienes. Todo está pensado en base + capa (porque un día de invierno en México puede empezar en 8° y terminar en 22°), organizado por categoría, con una alternativa budget por cada pieza de inversión. El bonus: un capsule chiquito de ski y una sección de eventos, porque diciembre es el mes en el que más veces dices “no tengo nada que ponerme”.</p>
+        <p>Todo lo que ves aquí lo compraríamos nosotras. De hecho, mucho ya lo compramos.</p>
+        <p>Te pedimos no compartas esta guía <span class="heart-red">&#9829;</span></p>
+        <p class="closing">Con cariño (y con criterio de buyer),</p>
+        <span class="sig">Ericka &amp; María</span>
       </div>
-      <span class="by">Curated by Ericka Tamez &amp; Maria Tricio</span>
     </div>
     <div class="photo-slot" aria-label="Photo coming soon"><span>Photo</span></div>
   </section>
@@ -353,14 +386,14 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
   <section class="wrap sheet home-only" id="cheat-sheet">
     <h2 class="rv">Pattern &amp; Color <span>Cheat Sheet</span></h2>
     <div class="grid2">
-      <div><h3 class="rv">Patterns</h3><div class="pair rv"><span class="sw" style="background-image:url(img/sw-gingham.jpg?v=${V})"></span><span class="sw" style="background:#5A1F2B"></span><b>Gingham + Burgundy<small>First Lift</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-houndstooth.jpg?v=${V})"></span><span class="sw" style="background:#3A2621"></span><b>Houndstooth + Chocolate<small>Après Ski</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-medallion.jpg?v=${V})"></span><span class="sw" style="background:#1E2435"></span><b>Medallion + Navy<small>Silk Pyjamas</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-plaid.jpg?v=${V})"></span><span class="sw" style="background:#B3202A"></span><b>Flannel + Cherry<small>Coffee Run</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-zebra.jpg?v=${V})"></span><span class="sw" style="background:#7F93A6"></span><b>Zebra + Light denim<small>Velvet & Denim</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-stripe.jpg?v=${V})"></span><span class="sw" style="background:#141414"></span><b>Merlot stripe + Black leather<small>Long Lunch</small></b></div><div class="pair rv"><span class="sw" style="background-image:url(img/sw-leopard.jpg?v=${V})"></span><span class="sw" style="background-image:url(img/sw-tartan.jpg?v=${V})"></span><b>Leopard + Tartan<small>Two prints, one palette</small></b></div></div>
-      <div><h3 class="rv">Colors</h3><div class="pair rv"><span class="sw" style="background:#5A1F2B"></span><span class="sw" style="background:#3A2621"></span><b>Burgundy + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#025A5F"></span><span class="sw" style="background:#E6DCC6"></span><b>Teal + Cream</b></div><div class="pair rv"><span class="sw" style="background:#4A4A2E"></span><span class="sw" style="background:#3A2621"></span><b>Olive + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#B00314"></span><span class="sw" style="background:#141414"></span><b>Cherry + Black</b></div><div class="pair rv"><span class="sw" style="background:#E6DACB"></span><span class="sw" style="background:#D79F9A"></span><b>Ivory + Blush</b></div><div class="pair rv"><span class="sw" style="background:#8B4A1E"></span><span class="sw" style="background:#4A4A30"></span><b>Rust + Olive</b></div><div class="pair rv"><span class="sw" style="background:#3B2D73"></span><span class="sw" style="background:#141414"></span><b>Purple + Black</b></div><div class="pair rv"><span class="sw" style="background:#02465F"></span><span class="sw" style="background:#3A2621"></span><b>Deep teal + Chocolate</b></div><div class="pair rv"><span class="sw" style="background:#7E232C"></span><span class="sw" style="background:#BDBAB4"></span><b>Merlot + Grey</b></div></div>
+      <div><h3 class="rv">Los colores</h3><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#6D182D"></span></span><b>Cereza<small>El color del invierno, punto. Si solo vas a comprar una cosa de esta guía, que sea en cereza.</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#4C2C1D"></span></span><b>Chocolate<small>Tu nuevo negro. Todo lo que tienes en negro, imagínalo en chocolate: mismo efecto, cero obviedad.</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#1F4A39"></span></span><b>Verde pino<small>El verde que no se ve de uniforme. De día con marfil, de noche con cereza (sí, juntos, confía).</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#9EB4C9"></span></span><b>Azul polvoso<small>Un baby blue que ya creció. Con chocolate es muy chic; con cereza es la combinación que nadie espera y todas van a preguntar.</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#EBE4D2"></span></span><b>Marfil<small>Blanco de invierno. Abrigo, pantalón o knit: junto al cereza y el chocolate es lo que hace que el look se vea pensado, no puesto. Head-to-toe si te animas.</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#D9A631"></span></span><b>Amarillo mostaza<small>El butter yellow del verano en versión adulta. En gamuza o en un suéter es donde más brilla.</small></b></div><div class="pair rv"><span class="sws" style="--n:2"><span class="sw" style="background:#B5A0CB"></span><span class="sw" style="background:#E8B3C0"></span></span><b>Lila (o rosita)<small>El acento del año. Si lila no es lo tuyo, un rosa empolvado hace exactamente el mismo trabajo. Un suéter basta.</small></b></div><h3 class="rv">Cómo los combinamos</h3><div class="pair rv"><span class="sws" style="--n:3"><span class="sw" style="background:#6D182D"></span><span class="sw" style="background:#4C2C1D"></span><span class="sw" style="background:#EBE4D2"></span></span><b>Cereza + chocolate + marfil<small>La de diario. Rica, cálida y cero esfuerzo.</small></b></div><div class="pair rv"><span class="sws" style="--n:3"><span class="sw" style="background:#1F4A39"></span><span class="sw" style="background:#D9A631"></span><span class="sw" style="background:#4C2C1D"></span></span><b>Verde pino + mostaza + chocolate<small>Otoñal sin ser obvio. El chocolate le quita lo scout.</small></b></div><div class="pair rv"><span class="sws" style="--n:3"><span class="sw" style="background:#9EB4C9"></span><span class="sw" style="background:#6D182D"></span><span class="sw" style="background:#4C2C1D"></span></span><b>Azul polvoso + cereza<small>La más nueva de la temporada. Chocolate en zapatos o bolsa.</small></b></div><div class="pair rv"><span class="sws" style="--n:3"><span class="sw" style="background:#B5A0CB"></span><span class="sw" style="background:#E8B3C0"></span><span class="sw" style="background:#4C2C1D"></span></span><b>Lila + rosita + chocolate<small>Dulce arriba, serio abajo. Funciona igual con verde pino.</small></b></div></div>
+      <div><h3 class="rv">Las texturas</h3><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-lana.jpg?v=${V})"></span></span><b>Lana y cashmere<small>La base de todo. Lisa, no peluda.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-pana.jpg?v=${V})"></span></span><b>Pana<small>Pantalón o saco. Canal ancho se ve más ahora.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-piel.jpg?v=${V})"></span></span><b>Piel lisa<small>Dos piezas juntas (chamarra y falda) o una sola como anchor del look.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-gamuza.jpg?v=${V})"></span></span><b>Gamuza<small>Donde el mostaza se ve mejor. Chamarra o falda.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-terciopelo.jpg?v=${V})"></span></span><b>Terciopelo<small>Unpopular opinion: de día es wow. Nosotras estamos deseando un duster.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-saten.jpg?v=${V})"></span></span><b>Satén<small>Con lana gruesa encima para que no grite “evento”.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-shearling.jpg?v=${V})"></span></span><b>Shearling<small>Abrigo o bota. Mejor tono sobre tono.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/tx-boucle.jpg?v=${V})"></span></span><b>Bouclé y tweed<small>Saco o falda. Con denim para bajarle lo señora.</small></b></div><h3 class="rv">Los prints</h3><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/pr-cuadros.jpg?v=${V})"></span></span><b>Cuadros (franela y tartán)<small>El print del invierno. Camisa, falda o bufanda; en cereza y verde se ve de temporada, no de disfraz.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/pr-jacquard.jpg?v=${V})"></span></span><b>Jacquard<small>En satén o en cualquier material brillante y estructurado queda espectacular. Que sea la statement piece.</small></b></div><div class="pair rv"><span class="sws" style="--n:1"><span class="sw" style="background-image:url(img/pr-leopardo.jpg?v=${V})"></span></span><b>Leopardo<small>El neutro de los neutros. Combina con cada color de esta página, y no estamos exagerando.</small></b></div></div>
     </div>
   </section>
   <section class="wrap staples home-only" id="staples">
     <h2 class="rv">Staples</h2>
     <p class="lead rv">The pieces every look is built on. Chances are some are already in your closet: check there first, then fill in the blanks.</p>
-    <div class="st-grid"><div class="st rv"><span class="ph"><img src="img/c07-coat.webp?v=${V}" alt="" loading="lazy"></span><h3>The coat</h3><p>One coat carries the season. Leopard, velvet or long black wool: pick one and wear it with everything.</p></div><div class="st rv"><span class="ph"><img src="img/c01-sweater.webp?v=${V}" alt="" loading="lazy"></span><h3>The cozy knit</h3><p>A turtleneck or a soft crewneck. Black, grey and cream never fail, but try burgundy or chocolate.</p></div><div class="st rv"><span class="ph"><img src="img/c20-tee.webp?v=${V}" alt="" loading="lazy"></span><h3>The base layer</h3><p>A white tee, a ribbed tank, a long-sleeve stripe. We never pack without them.</p></div><div class="st rv"><span class="ph"><img src="img/c14-jeans.webp?v=${V}" alt="" loading="lazy"></span><h3>Below the waist</h3><p>Straight jeans are non-negotiable. Then add one colour: red cord, purple velour or a printed trouser.</p></div><div class="st rv"><span class="ph"><img src="img/c18-booties.webp?v=${V}" alt="" loading="lazy"></span><h3>Walk the walk</h3><p>One shoe for day, one for after dark. Knee boots, ballet flats and a single statement heel.</p></div><div class="st rv"><span class="ph"><img src="img/c10-bag.webp?v=${V}" alt="" loading="lazy"></span><h3>Cherry on top</h3><p>One statement per look: a beaded bag, pearl earrings or a fur stole. Never all three.</p></div></div>
+    <div class="st-grid"><div class="st rv"><span class="ph"><img src="img/c07-coat.webp?v=${V}" alt="" loading="lazy"></span><h3>The coat</h3><p>The coat makes the look. Leopard, velvet or long black wool: go bold, it’s the first thing everyone sees.</p></div><div class="st rv"><span class="ph"><img src="img/c01-sweater.webp?v=${V}" alt="" loading="lazy"></span><h3>The cozy knit</h3><p>Already have your basics? Now invest in a chunkier knit, a fun knit or one with a different neckline.</p></div><div class="st rv"><span class="ph"><img src="img/c20-tee.webp?v=${V}" alt="" loading="lazy"></span><h3>The base layer</h3><p>A white tee, a ribbed tank, a long-sleeve stripe. We never pack without them.</p></div><div class="st rv"><span class="ph"><img src="img/c14-jeans.webp?v=${V}" alt="" loading="lazy"></span><h3>Below the waist</h3><p>Straight jeans are non-negotiable. Then add one colour: red cord, purple velour or a printed trouser.</p></div><div class="st rv"><span class="ph"><img src="img/c18-booties.webp?v=${V}" alt="" loading="lazy"></span><h3>Walk the walk</h3><p>Knee boots, ballet flats and a statement heel. Leopard, patent, satin: the shoe is where you play.</p></div><div class="st rv"><span class="ph"><img src="img/c10-bag.webp?v=${V}" alt="" loading="lazy"></span><h3>Cherry on top</h3><p>Go all out: a beaded bag, pearl earrings and a fur stole, all at once. Have fun with your accessories.</p></div></div>
   </section>
   <section class="together home-only" aria-label="Now let's put it together">
     <div class="mask-words">
@@ -376,7 +409,7 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
     <div class="stack">
       <div class="stack-card" style="--i:0"><span class="kicker">Rule one</span><h3>The coat is the look</h3><p>If you invest in one piece this season, make it this one.</p></div>
       <div class="stack-card" style="--i:1"><span class="kicker">Rule two</span><h3>Prints are neutrals</h3><p>Leopard, gingham and cheetah go with everything here. Treat them like black.</p></div>
-      <div class="stack-card" style="--i:2"><span class="kicker">Rule three</span><h3>One shine per night</h3><p>Patent, sequins or metal. Pick one and keep everything else matte.</p></div>
+      <div class="stack-card" style="--i:2"><span class="kicker">Rule three</span><h3>More is more</h3><p>Sequins, patent and metal in the same look? Yes. Go all out with your accessories.</p></div>
       <div class="stack-card" style="--i:3"><span class="kicker">Rule four</span><h3>Repeat your pieces</h3><p>The velvet coat and the cream knit show up in more than one look on purpose.</p></div>
     </div>
   </section>
@@ -408,40 +441,38 @@ footer .wrap{font-family:var(--sans);font-size:13px;color:var(--grey)}
 const BUYER={name:"Ana Torres",email:"ana.torres@correo.com"};
 /* Occasions hold looks; each look's "title" is the name shown on the page. pieces: [image, left %, top %, width %] inside the outfit box (ar = its width / height); items: [image, brand, description, ShopMy link or "" while pending, category] */
 const OCC=[
-{"id":"ski-trip","name":"Ski Trip","looks":[
- {"title":"First Lift","n":1,"copy":"Burgundy down, gingham and a shearling tote. First lift to last fondue.","ar":0.7986,"pieces":[["c01-sweater",39.23,1.49,38.93],["c01-jacket",1.24,21.87,34.86],["c01-pants",48.11,37.25,20.95],["c01-tote",13.08,62.97,23.1],["c01-boots",71.19,74.9,27.9]],"items":[["c01-jacket","Cordova","Meribel hooded ski jacket","https://go.shopmy.us/p-101066133","Outerwear"],["c01-sweater","Lisa Yang","Zerlina cashmere turtleneck","https://go.shopmy.us/p-101068764","Tops"],["c01-pants","Cordova","Sella belted gingham ski pants","https://go.shopmy.us/p-101065114","Bottoms"],["c01-tote","Khaite","Zoe shearling-paneled tote","https://go.shopmy.us/p-101070129","Bags"],["c01-boots","Phoebe Philo","Leather ankle boots","https://go.shopmy.us/p-101068419","Shoes"]]},
- {"title":"Après Ski","n":2,"copy":"A one-piece in chocolate, houndstooth on top and a cosy beanie.","ar":0.8299,"pieces":[["c02-suit",34.72,11.01,32.55],["c02-turtleneck",70.35,2.7,28.67],["c02-vest",0.83,31.75,25.85],["c02-bag",4.32,73.54,29.73],["c02-beanie",6.24,0.82,23.27],["c02-boots",65.75,80.81,28.5]],"items":[["c02-suit","We Norwegians","Finse ski suit","https://go.shopmy.us/p-100470285","Outerwear"],["c02-vest","We Norwegians","Glenshee houndstooth ski vest","https://go.shopmy.us/p-100493061","Outerwear"],["c02-turtleneck","We Norwegians","Geilo wool-blend turtleneck","https://go.shopmy.us/p-100492218","Tops"],["c02-beanie","Suzie Kondi","Lumi ribbed cashmere beanie","https://go.shopmy.us/p-100493839","Accessories"],["c02-bag","Etro","Pony small shearling bag","https://go.shopmy.us/p-101069633","Bags"],["c02-boots","Moon Boot","Combat felt boots","https://go.shopmy.us/p-100493609","Shoes"]]}]},
-{"id":"morning-after","name":"Morning After","looks":[
- {"title":"Silk Pyjamas","n":3,"copy":"Silk pyjamas in a medallion print, worn out of the house on purpose.","ar":0.7204,"pieces":[["p03-shirt",20.28,13.51,51.35],["p03-pants",70.57,39.44,26.03],["p03-bag",0.0,49.16,30.13],["p03-tank",75.03,0.0,24.97],["p03-slippers",32.71,86.15,43.49]],"items":[["p03-shirt","The Great","The Dapper shirt in medallion print","https://go.shopmy.us/p-100461723","Tops"],["p03-pants","The Great","The Tailored pull-on pant","https://go.shopmy.us/p-100461911","Bottoms"],["p03-tank","Donni","The Rib tank","https://go.shopmy.us/p-100462812","Tops"],["p03-bag","","Leopard calf hair hobo","","Bags"],["p03-slippers","","Velvet slippers","","Shoes"]]},
- {"title":"Coffee Run","n":4,"copy":"Flannel, red sweatpants and suede flats. Coffee run, still put together.","ar":1.0867,"pieces":[["c04-pants",39.94,25.23,27.49],["c04-shirt",6.12,1.6,31.62],["p04-tote",0.0,57.22,30.98],["c04-flats",70.64,85.95,28.45]],"items":[["c04-shirt","Róhe","Checked cotton flannel shirt","https://go.shopmy.us/p-100359980","Tops"],["c04-pants","Éterne","Oversized wide-leg sweatpant","","Bottoms"],["p04-tote","","Navy canvas tote","","Bags"],["c04-flats","The Row","Stella suede ballet flats","https://go.shopmy.us/p-100461025","Shoes"]]}]},
-{"id":"winter-wedding","name":"Winter Wedding","looks":[
- {"title":"The Guest","n":5,"copy":"Liquid teal satin under a cream fur. The guest everyone asks about.","ar":0.8386,"pieces":[["p05-dress",38.97,0.0,40.93],["c05-fur",1.16,4.86,36.4],["c05-sandals",64.26,76.37,28.83],["c05-clutch",7.62,53.94,31.45],["c05-earrings",80.98,7.35,18.43]],"items":[["p05-dress","","Teal satin cowl-neck gown","","Dresses"],["c05-fur","Ducie","Rochelle shearling jacket","https://go.shopmy.us/p-101064048","Outerwear"],["c05-clutch","Topshop","Ember satin envelope clutch","https://go.shopmy.us/p-100259840","Bags"],["c05-earrings","Julietta","Palais earrings","https://go.shopmy.us/p-100357046","Accessories"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]},
- {"title":"Black Tie, Mountains","n":6,"copy":"Olive silk, a brown stole and diamonds. Black tie in the mountains.","ar":0.7902,"pieces":[["p06-dress",33.9,5.36,29.94],["c06-stole",65.55,2.19,33.31],["c05-sandals",70.95,78.36,28.01],["p06-clutch",0.0,49.55,34.04],["c06-earrings",4.01,0.47,18.11]],"items":[["p06-dress","","Olive embellished satin gown","","Dresses"],["c06-stole","Mimchik","Faux fur shawl","https://go.shopmy.us/p-101058125","Accessories"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["p06-clutch","","Silver shagreen clutch","","Bags"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]}]},
-{"id":"nye","name":"NYE","looks":[
- {"title":"Leopard at Midnight","n":7,"copy":"Leopard over a satin bubble dress. Midnight, with attitude.","ar":0.8745,"pieces":[["c07-coat",4.0,4.0,39.31],["p07-dress",40.45,22.82,53.81],["p07-sandals",72.91,79.91,27.09],["c07-clutch",1.24,89.45,38.96],["c06-earrings",78.52,0.47,16.24]],"items":[["c07-coat","Toteme","Long pony hair coat","https://go.shopmy.us/p-100137811","Outerwear"],["p07-dress","","Champagne satin bubble minidress","","Dresses"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["c07-clutch","Khaite","Donna leather clutch","https://go.shopmy.us/p-100275795","Bags"],["p07-sandals","","Black strappy sandals","","Shoes"]]},
- {"title":"Gold Hour","n":8,"copy":"An embroidered gold mini, a velvet coat and baroque earrings.","ar":0.8919,"pieces":[["c08-coat",64.82,2.38,34.09],["p08-dress",29.61,15.69,33.48],["c08-sandal",21.39,78.95,11.3],["p08-earrings",6.44,3.73,23.18],["c08-clutch",0.87,50.33,26.6]],"items":[["p08-dress","","Gold embroidered minidress","","Dresses"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["p08-earrings","","Baroque cross earrings","","Accessories"],["c08-clutch","Topshop","Ember satin envelope clutch","https://go.shopmy.us/p-100259840","Bags"],["c08-sandal","Amina Muaddi","Lori lace-up sandals","https://go.shopmy.us/p-100347454","Shoes"]]},
- {"title":"Black Lace","n":9,"copy":"Black lace, black fur and a crystal choker. Only one shine.","ar":0.871,"pieces":[["c09-coat",1.42,4.34,44.48],["c09-dress",47.33,19.53,30.66],["c09-sandals",63.55,74.53,27.73],["p09-choker",75.54,3.83,24.46],["p09-clutch",14.59,71.87,34.33]],"items":[["c09-dress","Rodarte","Lace and silk satin minidress","https://go.shopmy.us/p-100258887","Dresses"],["c09-coat","The Frankie Shop","Matera faux fur coat","https://go.shopmy.us/p-100348215","Outerwear"],["p09-choker","","Crystal drop choker","","Accessories"],["p09-clutch","","Ochre leather clutch","","Bags"],["c09-sandals","The Attico","Ornella satin platform sandals","https://go.shopmy.us/p-100263973","Shoes"]]}]},
-{"id":"christmas-dinner","name":"Christmas Dinner","looks":[
- {"title":"Red Taffeta","n":10,"copy":"A red taffeta top with sharp black tailoring and a chainmail bag.","ar":0.7798,"pieces":[["c10-coat",63.46,8.24,35.26],["p10-top",15.62,0.0,42.56],["c10-pants",41.22,43.37,21.01],["c10-bag",1.07,52.86,18.99],["c09-sandals",65.46,79.87,24.48],["c10-earrings",1.38,13.69,16.21]],"items":[["p10-top","","Red taffeta strapless top","","Tops"],["c10-pants","Toteme","Mid-rise straight pants","https://go.shopmy.us/p-100263550","Bottoms"],["c10-coat","Róhe","Double-breasted wool coat","https://go.shopmy.us/p-100264329","Outerwear"],["c10-bag","Rabanne","1969 Nano embellished bag","https://go.shopmy.us/p-100265194","Bags"],["c10-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100251880","Accessories"],["c09-sandals","The Attico","Ornella satin platform sandals","https://go.shopmy.us/p-100263973","Shoes"]]},
- {"title":"Ivory Column","n":11,"copy":"Ivory column dress, velvet coat and a pop of pink.","ar":0.9062,"pieces":[["c08-coat",65.48,2.3,33.46],["c11-dress",37.84,13.19,23.94],["c11-scarf",1.32,40.82,29.88],["c11-bag",1.73,78.85,21.67],["c11-mules",67.87,85.82,25.72],["c11-earrings",7.03,5.07,16.72]],"items":[["c11-dress","Heirlome","Lida silk dress","https://go.shopmy.us/p-100207848","Dresses"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["c11-scarf","Kallmeyer","Zoya sequined velvet scarf","https://go.shopmy.us/p-100153578","Accessories"],["c11-bag","Liffner","Pushlock Lady mini in pink lizard","https://go.shopmy.us/p-100249587","Bags"],["c11-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100252343","Accessories"],["c11-mules","Femme LA","Kaia satin mules","https://go.shopmy.us/p-100208344","Shoes"]]}]},
-{"id":"christmas-lunch","name":"Christmas Lunch","looks":[
- {"title":"Rust Fur","n":12,"copy":"Rust fur, olive leather and knee boots. Lunch that runs into dinner.","ar":0.7494,"pieces":[["p12-coat",0.0,14.65,43.22],["p12-top",42.67,0.0,33.56],["p12-skirt",43.56,41.22,31.11],["p12-boot",75.56,65.7,24.44],["c07-clutch",7.98,89.61,34.05]],"items":[["p12-coat","Stand Studio","Hilma faux fur coat","https://go.shopmy.us/p-100140727","Outerwear"],["p12-top","Françoise","Coralie ruched top","https://go.shopmy.us/p-100273955","Tops"],["p12-skirt","Françoise","Oakley leather midi skirt","https://go.shopmy.us/p-100273818","Bottoms"],["c07-clutch","Khaite","Donna leather clutch","https://go.shopmy.us/p-100275795","Bags"],["p12-boot","Saint Laurent","Françoise suede knee boots","https://go.shopmy.us/p-100276975","Shoes"]]},
- {"title":"Cheetah & Cream","n":13,"copy":"Cream knit, cheetah trousers and gold. Easy, but dressed.","ar":0.8981,"pieces":[["c08-coat",66.45,4.67,32.4],["p13-pants",35.48,36.66,23.58],["c13-sweater",33.48,1.36,27.81],["c11-scarf",4.37,32.99,28.4],["p13-mules",63.07,83.62,28.03],["c13-earrings",3.62,5.56,22.69],["c13-clutch",0.88,72.33,27.06]],"items":[["c13-sweater","Kallmeyer","Wynn long sleeve in vanilla","https://go.shopmy.us/p-100148170","Tops"],["p13-pants","","Cheetah print trousers","","Bottoms"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["c11-scarf","Kallmeyer","Zoya sequined velvet scarf","https://go.shopmy.us/p-100153578","Accessories"],["c13-clutch","Liffner","Paper clutch in deep jade croc","https://go.shopmy.us/p-100251110","Bags"],["c13-earrings","","Gold petal earrings","","Accessories"],["p13-mules","Christian Louboutin","Patent leather mules","","Shoes"]]}]},
-{"id":"night-out","name":"Night Out","looks":[
- {"title":"Velvet & Denim","n":14,"copy":"A velvet jacket with frogging, light denim and zebra boots.","ar":0.775,"pieces":[["c14-jacket",29.53,1.26,49.28],["c14-jeans",41.6,37.52,25.12],["c14-boots",73.18,63.25,25.86],["c14-bag",1.14,77.95,35.64],["c14-earrings",0.77,2.66,20.68]],"items":[["c14-jacket","The New Arrivals","Loulou velvet jacket","https://go.shopmy.us/p-100149915","Outerwear"],["c14-jeans","Citizens of Humanity","Lindz straight jeans","https://go.shopmy.us/p-100150610","Bottoms"],["c14-boots","Britt Netta","Odette calf hair knee boots","https://go.shopmy.us/p-100148866","Shoes"],["c14-bag","Dries Van Noten","Small embellished crossbody","https://go.shopmy.us/p-100206656","Bags"],["c14-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100251880","Accessories"]]}]},
-{"id":"lunch-with-friends","name":"Lunch with Friends","looks":[
- {"title":"Long Lunch","n":15,"copy":"Shearling-collar leather, striped trousers and a studded bag.","ar":0.843,"pieces":[["c15-jacket",1.4,26.83,43.83],["c15-tee",39.48,1.03,38.66],["c15-pants",48.93,36.28,21.02],["c15-bag",75.23,30.18,23.04],["c15-boots",74.35,83.13,24.79]],"items":[["c15-jacket","Stand Studio","Tobie leather jacket","https://go.shopmy.us/p-100139810","Outerwear"],["c15-tee","Perfectwhitetee","Amelia raglan tee","https://go.shopmy.us/p-100145981","Tops"],["c15-pants","High Sport","Luke pant in merlot arrow stripe","https://go.shopmy.us/p-100145051","Bottoms"],["c15-bag","Etro","Kalispera fringed suede bag","https://go.shopmy.us/p-100147090","Bags"],["c15-boots","Khaite","Colt ankle boot","https://go.shopmy.us/p-100145563","Shoes"]]}]},
-{"id":"gym","name":"Gym","looks":[
- {"title":"Velour Set","n":16,"copy":"Purple velour, a long black coat and silver sneakers.","ar":0.7927,"pieces":[["p16-coat",0.0,39.97,41.98],["p16-fleece",2.92,0.0,38.44],["c16-pants",42.04,53.91,28.1],["c16-sweatshirt",63.51,22.28,34.96],["c16-bag",74.32,56.26,24.48],["c16-bra",45.76,22.86,17.23],["c16-sneakers",74.54,88.2,24.68]],"items":[["c16-sweatshirt","Suzie Kondi","Samos velour sweatshirt","https://go.shopmy.us/p-100460042","Tops"],["c16-pants","Suzie Kondi","Lito velour pants","https://go.shopmy.us/p-100460214","Bottoms"],["p16-coat","Lisa Yang","Doublé textured coat","https://go.shopmy.us/p-100467887","Outerwear"],["p16-fleece","","Black zip fleece","","Outerwear"],["c16-bra","","Sports bra with yellow trim","","Tops"],["c16-bag","Lisa Yang","Oma brushed bag","https://go.shopmy.us/p-100468280","Bags"],["c16-sneakers","","Silver running sneakers","","Shoes"]]},
- {"title":"Teal on Teal","n":17,"copy":"Teal on teal, a fur-trimmed puffer and trail sneakers.","ar":0.9476,"pieces":[["p17-puffer",56.98,0.0,43.02],["p17-top",0.0,3.46,44.89],["p17-pants",35.99,42.36,29.33],["p17-tote",5.15,53.29,28.58],["c17-bra",42.05,2.45,19.56],["c17-sneakers",70.91,77.44,24.63]],"items":[["p17-top","Donni","Sueded jersey stripe long sleeve","https://go.shopmy.us/p-100463173","Tops"],["p17-pants","Donni","Baby rib scallop pant","https://go.shopmy.us/p-100463378","Bottoms"],["c17-bra","CSB","Form micro crop","https://go.shopmy.us/p-100465505","Tops"],["p17-puffer","H&M","Tie-belt puffer coat","https://go.shopmy.us/p-100466898","Outerwear"],["p17-tote","","Navy canvas tote","","Bags"],["c17-sneakers","","Trail sneakers","","Shoes"]]}]},
-{"id":"cold-days","name":"Cold Days","looks":[
+{"id":"the-everyday","name":"The Everyday","sub":"Hace frío, te quieres ver put together y estar cozy al mismo tiempo. Cool, not in the Adam Sandler way.","looks":[
  {"title":"Belted Leather","n":18,"copy":"Belted leather, a cream knit and leopard boots.","ar":0.872,"pieces":[["c18-jacket",1.34,24.19,33.35],["p18-fairisle",65.99,27.89,34.01],["c18-sweater",35.82,1.2,30.38],["c18-jeans",39.1,48.86,19.48],["c18-booties",64.36,79.57,25.12],["c18-clutch",6.03,87.57,24.07]],"items":[["c18-jacket","Heirlome","Ellis leather jacket","https://go.shopmy.us/p-100152452","Outerwear"],["c18-sweater","Kallmeyer","Wynn long sleeve in vanilla","https://go.shopmy.us/p-100148170","Tops"],["c18-jeans","Citizens of Humanity","Lindz straight jeans","https://go.shopmy.us/p-100150610","Bottoms"],["p18-fairisle","","Grey fair isle sweater","","Tops"],["c18-clutch","The Row","Peggy small leather bag","https://go.shopmy.us/p-100156105","Bags"],["c18-booties","Saint Laurent","Ashley leopard ankle boots","https://go.shopmy.us/p-100154459","Shoes"]]},
  {"title":"Rust & Denim","n":19,"copy":"A long rust fur, dark denim and pink ballet flats.","ar":0.8669,"pieces":[["p19-coat",0.0,0.0,38.72],["p19-jeans",41.86,47.08,26.63],["c19-sweater",40.86,12.88,30.6],["p19-bag",13.95,63.81,24.19],["p19-flats",71.98,91.94,28.02]],"items":[["p19-coat","Stand Studio","Hilma faux fur coat","https://go.shopmy.us/p-100140727","Outerwear"],["c19-sweater","Kallmeyer","Wynn long sleeve in vanilla","https://go.shopmy.us/p-100148170","Tops"],["p19-jeans","Re/Done","Kaia jean","https://go.shopmy.us/p-100143208","Bottoms"],["p19-bag","","Leopard calf hair hobo","","Bags"],["p19-flats","","Pink ballet flats","","Shoes"]]},
  {"title":"The Leopard Coat","n":20,"copy":"Leopard, a white tee and washed purple denim.","ar":0.8256,"pieces":[["c07-coat",1.15,11.33,35.95],["p20-jeans",39.04,33.74,29.45],["p20-sweater",63.24,0.0,36.76],["c20-tee",37.12,6.87,32.84],["p20-tote",3.2,71.44,35.16],["p20-boots",69.41,79.55,26.03]],"items":[["c07-coat","Toteme","Long pony hair coat","https://go.shopmy.us/p-100137811","Outerwear"],["c20-tee","Éterne","Short sleeve boxy tee","https://go.shopmy.us/p-100141922","Tops"],["p20-sweater","Tnuck","Genevieve cashmere crewneck","https://go.shopmy.us/p-100142285","Tops"],["p20-jeans","EB Denim","Maria low-rise bootcut jeans","https://go.shopmy.us/p-100138238","Bottoms"],["p20-tote","Kallmeyer","Driving bag in leather","https://go.shopmy.us/p-100147469","Bags"],["p20-boots","Proenza Schouler","Trap ankle boots","https://go.shopmy.us/p-100137715","Shoes"]]},
- {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]}];
+ {"title":"Fair Isle","n":21,"copy":"Fair isle, red cord and a long black coat. A walk that ends at a café.","ar":0.8694,"pieces":[["p21-coat",62.94,1.37,37.06],["p21-pants",24.41,39.95,28.56],["p21-sweater",21.74,0.0,34.39],["p21-bag",0.0,67.1,23.62],["p21-boots",54.15,70.1,26.48]],"items":[["p21-sweater","","Fair isle wool sweater","","Tops"],["p21-pants","","Red corduroy barrel pants","","Bottoms"],["p21-coat","","Black double-breasted wool coat","","Outerwear"],["p21-bag","","Shearling-trimmed suede bag","","Bags"],["p21-boots","","Black leather ankle boots","","Shoes"]]}]},
+{"id":"winter-workouts","name":"Winter Workouts","sub":"En el gym hace calor, afuera frío, mil pendientes en el inter. We got you 😉","looks":[
+ {"title":"Velour Set","n":16,"copy":"Purple velour, a long black coat and silver sneakers.","ar":0.7927,"pieces":[["p16-coat",0.0,39.97,41.98],["p16-fleece",2.92,0.0,38.44],["c16-pants",42.04,53.91,28.1],["c16-sweatshirt",63.51,22.28,34.96],["c16-bag",74.32,56.26,24.48],["c16-bra",45.76,22.86,17.23],["c16-sneakers",74.54,88.2,24.68]],"items":[["c16-sweatshirt","Suzie Kondi","Samos velour sweatshirt","https://go.shopmy.us/p-100460042","Tops"],["c16-pants","Suzie Kondi","Lito velour pants","https://go.shopmy.us/p-100460214","Bottoms"],["p16-coat","Lisa Yang","Doublé textured coat","https://go.shopmy.us/p-100467887","Outerwear"],["p16-fleece","","Black zip fleece","","Outerwear"],["c16-bra","","Sports bra with yellow trim","","Tops"],["c16-bag","Lisa Yang","Oma brushed bag","https://go.shopmy.us/p-100468280","Bags"],["c16-sneakers","","Silver running sneakers","","Shoes"]]},
+ {"title":"Teal on Teal","n":17,"copy":"Teal on teal, a fur-trimmed puffer and trail sneakers.","ar":0.9476,"pieces":[["p17-puffer",56.98,0.0,43.02],["p17-top",0.0,3.46,44.89],["p17-pants",35.99,42.36,29.33],["p17-tote",5.15,53.29,28.58],["c17-bra",42.05,2.45,19.56],["c17-sneakers",70.91,77.44,24.63]],"items":[["p17-top","Donni","Sueded jersey stripe long sleeve","https://go.shopmy.us/p-100463173","Tops"],["p17-pants","Donni","Baby rib scallop pant","https://go.shopmy.us/p-100463378","Bottoms"],["c17-bra","CSB","Form micro crop","https://go.shopmy.us/p-100465505","Tops"],["p17-puffer","H&M","Tie-belt puffer coat","https://go.shopmy.us/p-100466898","Outerwear"],["p17-tote","","Navy canvas tote","","Bags"],["c17-sneakers","","Trail sneakers","","Shoes"]]}]},
+{"id":"social-agenda","name":"Social Agenda","sub":"Cena de amigas, posada familiar, piensa en los eventos de la temporada que tienen un dress code menos formal. Mostly for the girls and the gays.","looks":[
+ {"title":"Velvet & Denim","n":14,"copy":"A velvet jacket with frogging, light denim and zebra boots.","ar":0.775,"pieces":[["c14-jacket",29.53,1.26,49.28],["c14-jeans",41.6,37.52,25.12],["c14-boots",73.18,63.25,25.86],["c14-bag",1.14,77.95,35.64],["c14-earrings",0.77,2.66,20.68]],"items":[["c14-jacket","The New Arrivals","Loulou velvet jacket","https://go.shopmy.us/p-100149915","Outerwear"],["c14-jeans","Citizens of Humanity","Lindz straight jeans","https://go.shopmy.us/p-100150610","Bottoms"],["c14-boots","Britt Netta","Odette calf hair knee boots","https://go.shopmy.us/p-100148866","Shoes"],["c14-bag","Dries Van Noten","Small embellished crossbody","https://go.shopmy.us/p-100206656","Bags"],["c14-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100251880","Accessories"]]},
+ {"title":"Long Lunch","n":15,"copy":"Shearling-collar leather, striped trousers and a studded bag.","ar":0.843,"pieces":[["c15-jacket",1.4,26.83,43.83],["c15-tee",39.48,1.03,38.66],["c15-pants",48.93,36.28,21.02],["c15-bag",75.23,30.18,23.04],["c15-boots",74.35,83.13,24.79]],"items":[["c15-jacket","Stand Studio","Tobie leather jacket","https://go.shopmy.us/p-100139810","Outerwear"],["c15-tee","Perfectwhitetee","Amelia raglan tee","https://go.shopmy.us/p-100145981","Tops"],["c15-pants","High Sport","Luke pant in merlot arrow stripe","https://go.shopmy.us/p-100145051","Bottoms"],["c15-bag","Etro","Kalispera fringed suede bag","https://go.shopmy.us/p-100147090","Bags"],["c15-boots","Khaite","Colt ankle boot","https://go.shopmy.us/p-100145563","Shoes"]]}]},
+{"id":"christmas-eve","name":"Christmas Eve","sub":"Family approved, mostly.","looks":[
+ {"title":"Red Taffeta","n":10,"copy":"A red taffeta top with sharp black tailoring and a chainmail bag.","ar":0.7798,"pieces":[["c10-coat",63.46,8.24,35.26],["p10-top",15.62,0.0,42.56],["c10-pants",41.22,43.37,21.01],["c10-bag",1.07,52.86,18.99],["c09-sandals",65.46,79.87,24.48],["c10-earrings",1.38,13.69,16.21]],"items":[["p10-top","","Red taffeta strapless top","","Tops"],["c10-pants","Toteme","Mid-rise straight pants","https://go.shopmy.us/p-100263550","Bottoms"],["c10-coat","Róhe","Double-breasted wool coat","https://go.shopmy.us/p-100264329","Outerwear"],["c10-bag","Rabanne","1969 Nano embellished bag","https://go.shopmy.us/p-100265194","Bags"],["c10-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100251880","Accessories"],["c09-sandals","The Attico","Ornella satin platform sandals","https://go.shopmy.us/p-100263973","Shoes"]]},
+ {"title":"Ivory Column","n":11,"copy":"Ivory column dress, velvet coat and a pop of pink.","ar":0.9062,"pieces":[["c08-coat",65.48,2.3,33.46],["c11-dress",37.84,13.19,23.94],["c11-scarf",1.32,40.82,29.88],["c11-bag",1.73,78.85,21.67],["c11-mules",67.87,85.82,25.72],["c11-earrings",7.03,5.07,16.72]],"items":[["c11-dress","Heirlome","Lida silk dress","https://go.shopmy.us/p-100207848","Dresses"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["c11-scarf","Kallmeyer","Zoya sequined velvet scarf","https://go.shopmy.us/p-100153578","Accessories"],["c11-bag","Liffner","Pushlock Lady mini in pink lizard","https://go.shopmy.us/p-100249587","Bags"],["c11-earrings","Simone Rocha","Crystal drop earrings","https://go.shopmy.us/p-100252343","Accessories"],["c11-mules","Femme LA","Kaia satin mules","https://go.shopmy.us/p-100208344","Shoes"]]},
+ {"title":"Rust Fur","n":12,"copy":"Rust fur, olive leather and knee boots. Lunch that runs into dinner.","ar":0.7494,"pieces":[["p12-coat",0.0,14.65,43.22],["p12-top",42.67,0.0,33.56],["p12-skirt",43.56,41.22,31.11],["p12-boot",75.56,65.7,24.44],["c07-clutch",7.98,89.61,34.05]],"items":[["p12-coat","Stand Studio","Hilma faux fur coat","https://go.shopmy.us/p-100140727","Outerwear"],["p12-top","Françoise","Coralie ruched top","https://go.shopmy.us/p-100273955","Tops"],["p12-skirt","Françoise","Oakley leather midi skirt","https://go.shopmy.us/p-100273818","Bottoms"],["c07-clutch","Khaite","Donna leather clutch","https://go.shopmy.us/p-100275795","Bags"],["p12-boot","Saint Laurent","Françoise suede knee boots","https://go.shopmy.us/p-100276975","Shoes"]]},
+ {"title":"Cheetah & Cream","n":13,"copy":"Cream knit, cheetah trousers and gold. Easy, but dressed.","ar":0.8981,"pieces":[["c08-coat",66.45,4.67,32.4],["p13-pants",35.48,36.66,23.58],["c13-sweater",33.48,1.36,27.81],["c11-scarf",4.37,32.99,28.4],["p13-mules",63.07,83.62,28.03],["c13-earrings",3.62,5.56,22.69],["c13-clutch",0.88,72.33,27.06]],"items":[["c13-sweater","Kallmeyer","Wynn long sleeve in vanilla","https://go.shopmy.us/p-100148170","Tops"],["p13-pants","","Cheetah print trousers","","Bottoms"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["c11-scarf","Kallmeyer","Zoya sequined velvet scarf","https://go.shopmy.us/p-100153578","Accessories"],["c13-clutch","Liffner","Paper clutch in deep jade croc","https://go.shopmy.us/p-100251110","Bags"],["c13-earrings","","Gold petal earrings","","Accessories"],["p13-mules","Christian Louboutin","Patent leather mules","","Shoes"]]}]},
+{"id":"nye","name":"NYE","sub":"Overdressed on purpose","looks":[
+ {"title":"Leopard at Midnight","n":7,"copy":"Leopard over a satin bubble dress. Midnight, with attitude.","ar":0.8745,"pieces":[["c07-coat",4.0,4.0,39.31],["p07-dress",40.45,22.82,53.81],["p07-sandals",72.91,79.91,27.09],["c07-clutch",1.24,89.45,38.96],["c06-earrings",78.52,0.47,16.24]],"items":[["c07-coat","Toteme","Long pony hair coat","https://go.shopmy.us/p-100137811","Outerwear"],["p07-dress","","Champagne satin bubble minidress","","Dresses"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["c07-clutch","Khaite","Donna leather clutch","https://go.shopmy.us/p-100275795","Bags"],["p07-sandals","","Black strappy sandals","","Shoes"]]},
+ {"title":"Gold Hour","n":8,"copy":"An embroidered gold mini, a velvet coat and baroque earrings.","ar":0.8919,"pieces":[["c08-coat",64.82,2.38,34.09],["p08-dress",29.61,15.69,33.48],["c08-sandal",21.39,78.95,11.3],["p08-earrings",6.44,3.73,23.18],["c08-clutch",0.87,50.33,26.6]],"items":[["p08-dress","","Gold embroidered minidress","","Dresses"],["c08-coat","Mel Usine","Arles velvet corduroy coat","https://go.shopmy.us/p-100154884","Outerwear"],["p08-earrings","","Baroque cross earrings","","Accessories"],["c08-clutch","Topshop","Ember satin envelope clutch","https://go.shopmy.us/p-100259840","Bags"],["c08-sandal","Amina Muaddi","Lori lace-up sandals","https://go.shopmy.us/p-100347454","Shoes"]]},
+ {"title":"Black Lace","n":9,"copy":"Black lace, black fur and a crystal choker. Shine on shine.","ar":0.871,"pieces":[["c09-coat",1.42,4.34,44.48],["c09-dress",47.33,19.53,30.66],["c09-sandals",63.55,74.53,27.73],["p09-choker",75.54,3.83,24.46],["p09-clutch",14.59,71.87,34.33]],"items":[["c09-dress","Rodarte","Lace and silk satin minidress","https://go.shopmy.us/p-100258887","Dresses"],["c09-coat","The Frankie Shop","Matera faux fur coat","https://go.shopmy.us/p-100348215","Outerwear"],["p09-choker","","Crystal drop choker","","Accessories"],["p09-clutch","","Ochre leather clutch","","Bags"],["c09-sandals","The Attico","Ornella satin platform sandals","https://go.shopmy.us/p-100263973","Shoes"]]}]},
+{"id":"morning-after","name":"Morning After","sub":"Low effort, comodidad máxima y lo mejor? Estás lista para quien saque la cámara 9am el 25 de diciembre.","looks":[
+ {"title":"Silk Pyjamas","n":3,"copy":"Silk pyjamas in a medallion print, worn out of the house on purpose.","ar":0.7204,"pieces":[["p03-shirt",20.28,13.51,51.35],["p03-pants",70.57,39.44,26.03],["p03-bag",0.0,49.16,30.13],["p03-tank",75.03,0.0,24.97],["p03-slippers",32.71,86.15,43.49]],"items":[["p03-shirt","The Great","The Dapper shirt in medallion print","https://go.shopmy.us/p-100461723","Tops"],["p03-pants","The Great","The Tailored pull-on pant","https://go.shopmy.us/p-100461911","Bottoms"],["p03-tank","Donni","The Rib tank","https://go.shopmy.us/p-100462812","Tops"],["p03-bag","","Leopard calf hair hobo","","Bags"],["p03-slippers","","Velvet slippers","","Shoes"]]},
+ {"title":"Coffee Run","n":4,"copy":"Flannel, red sweatpants and suede flats. Coffee run, still put together.","ar":1.0867,"pieces":[["c04-pants",39.94,25.23,27.49],["c04-shirt",6.12,1.6,31.62],["p04-tote",0.0,57.22,30.98],["c04-flats",70.64,85.95,28.45]],"items":[["c04-shirt","Róhe","Checked cotton flannel shirt","https://go.shopmy.us/p-100359980","Tops"],["c04-pants","Éterne","Oversized wide-leg sweatpant","","Bottoms"],["p04-tote","","Navy canvas tote","","Bags"],["c04-flats","The Row","Stella suede ballet flats","https://go.shopmy.us/p-100461025","Shoes"]]}]},
+{"id":"ski-trip","name":"Ski Trip","sub":"Ski level irrelevant","looks":[
+ {"title":"First Lift","n":1,"copy":"Burgundy down, gingham and a shearling tote. First lift to last fondue.","ar":0.7986,"pieces":[["c01-sweater",39.23,1.49,38.93],["c01-jacket",1.24,21.87,34.86],["c01-pants",48.11,37.25,20.95],["c01-tote",13.08,62.97,23.1],["c01-boots",71.19,74.9,27.9]],"items":[["c01-jacket","Cordova","Meribel hooded ski jacket","https://go.shopmy.us/p-101066133","Outerwear"],["c01-sweater","Lisa Yang","Zerlina cashmere turtleneck","https://go.shopmy.us/p-101068764","Tops"],["c01-pants","Cordova","Sella belted gingham ski pants","https://go.shopmy.us/p-101065114","Bottoms"],["c01-tote","Khaite","Zoe shearling-paneled tote","https://go.shopmy.us/p-101070129","Bags"],["c01-boots","Phoebe Philo","Leather ankle boots","https://go.shopmy.us/p-101068419","Shoes"]]},
+ {"title":"Après Ski","n":2,"copy":"A one-piece in chocolate, houndstooth on top and a cosy beanie.","ar":0.8299,"pieces":[["c02-suit",34.72,11.01,32.55],["c02-turtleneck",70.35,2.7,28.67],["c02-vest",0.83,31.75,25.85],["c02-bag",4.32,73.54,29.73],["c02-beanie",6.24,0.82,23.27],["c02-boots",65.75,80.81,28.5]],"items":[["c02-suit","We Norwegians","Finse ski suit","https://go.shopmy.us/p-100470285","Outerwear"],["c02-vest","We Norwegians","Glenshee houndstooth ski vest","https://go.shopmy.us/p-100493061","Outerwear"],["c02-turtleneck","We Norwegians","Geilo wool-blend turtleneck","https://go.shopmy.us/p-100492218","Tops"],["c02-beanie","Suzie Kondi","Lumi ribbed cashmere beanie","https://go.shopmy.us/p-100493839","Accessories"],["c02-bag","Etro","Pony small shearling bag","https://go.shopmy.us/p-101069633","Bags"],["c02-boots","Moon Boot","Combat felt boots","https://go.shopmy.us/p-100493609","Shoes"]]}]},
+{"id":"winter-wedding","name":"Winter Wedding","sub":"Las bodas en invierno siempre se sienten más elegantes. More is more this time, bring your fur.","looks":[
+ {"title":"The Guest","n":5,"copy":"Liquid teal satin under a cream fur. The guest everyone asks about.","ar":0.8386,"pieces":[["p05-dress",38.97,0.0,40.93],["c05-fur",1.16,4.86,36.4],["c05-sandals",64.26,76.37,28.83],["c05-clutch",7.62,53.94,31.45],["c05-earrings",80.98,7.35,18.43]],"items":[["p05-dress","","Teal satin cowl-neck gown","","Dresses"],["c05-fur","Ducie","Rochelle shearling jacket","https://go.shopmy.us/p-101064048","Outerwear"],["c05-clutch","Topshop","Ember satin envelope clutch","https://go.shopmy.us/p-100259840","Bags"],["c05-earrings","Julietta","Palais earrings","https://go.shopmy.us/p-100357046","Accessories"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]},
+ {"title":"Black Tie, Mountains","n":6,"copy":"Olive silk, a brown stole and diamonds. Black tie in the mountains.","ar":0.7902,"pieces":[["p06-dress",33.9,5.36,29.94],["c06-stole",65.55,2.19,33.31],["c05-sandals",70.95,78.36,28.01],["p06-clutch",0.0,49.55,34.04],["c06-earrings",4.01,0.47,18.11]],"items":[["p06-dress","","Olive embellished satin gown","","Dresses"],["c06-stole","Mimchik","Faux fur shawl","https://go.shopmy.us/p-101058125","Accessories"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["p06-clutch","","Silver shagreen clutch","","Bags"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1793891357";
+const V="1793926708";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -489,29 +520,38 @@ addEventListener("popstate",()=>route(location.hash.slice(1),false));
 
 /* Occasions, each with its looks: loose pieces laid out as the stylist placed them + copy + Shop the look */
 const brands=l=>[...new Set(l.items.map(it=>it[1]).filter(Boolean))].join(" · ");
-const fig=(l,i)=>`<div class="fig" data-i="${i}" role="button" tabindex="0" aria-label="Shop this ${l.occ} look" style="aspect-ratio:${l.ar};${l.ar>.8?"width:100%":"height:100%"}">${l.pieces.map(([img,x,y,w],k)=>`<span class="pc" style="left:${x}%;top:${y}%;width:${w}%;--k:${k}"><img src="img/${img}.webp?v=${V}" alt="" decoding="async"></span>`).join("")}</div>`;
+const fig=(l,i)=>`<div class="fig" data-i="${i}" role="button" tabindex="0" aria-label="Shop this ${l.occ} look" style="--ar:${l.ar}">${l.pieces.map(([img,x,y,w],k)=>`<span class="pc" style="left:${x}%;top:${y}%;width:${w}%;--k:${k}"><img src="img/${img}.webp?v=${V}" alt="" decoding="async"></span>`).join("")}</div>`;
 const looksEl0=document.getElementById("looks");
 looksEl0.innerHTML=OCC.map((o,oi)=>`
   <section class="occ" id="${o.id}">
-    <header class="wrap occ-head"><a class="back occ-back" href="#home">All looks</a><span class="kicker">${looksLabel(o.looks.length)}</span><h2>${o.name}</h2></header>
+    <header class="occ-head"><div class="wrap occ-in"><a class="back occ-back" href="#home">All looks</a>
+      <div class="occ-t"><span class="kicker">${looksLabel(o.looks.length)}</span><h2>${o.name}</h2></div>
+      <p class="occ-sub">${o.sub||""}</p></div></header>
     ${o.looks.map(l=>{const i=LOOKS.findIndex(x=>x.n===l.n);return `
     <div class="wrap look">
       <div class="fig-wrap">${fig(LOOKS[i],i)}</div>
       <div class="look-copy"><h3>${l.title}</h3><p>${l.copy}</p><span class="brands">${brands(l)}</span>
-        <button class="btn" data-i="${i}">Shop the look</button><span class="count">${l.items.length} pieces</span></div>
+        <button class="btn${i%2?"":" btn-dark"}" data-i="${i}">Shop the look</button><span class="count">${l.items.length} pieces</span></div>
     </div>`}).join("")}
     <nav class="wrap occ-next" aria-label="More plans">${oi>0?`<a href="#${OCC[oi-1].id}"><small>Previous</small>${OCC[oi-1].name}</a>`:""}${oi<OCC.length-1?`<a href="#${OCC[oi+1].id}"><small>Next</small>${OCC[oi+1].name}</a>`:`<a href="#shop"><small>Next</small>View by product</a>`}</nav>
   </section>`).join("");
 looksEl0.addEventListener("click",e=>{const a=e.target.closest(".occ-next a,.occ-back");if(!a)return;e.preventDefault();route(a.getAttribute("href").slice(1))});
 
 /* Product card, shared by the drawer and View by product */
-const card=([img,brand,desc,url],key,extra="")=>`
-    <${url?`a class="card" href="${url}" target="_blank" rel="noopener sponsored"`:`div class="card soon"`}>
+/* ALT: a cheaper option for the pricey pieces. ALTS maps a product (its link, or its name when it has none) to [img, brand, desc, url] */
+const ALTS=/*ALTS*/{};
+/* Preview only: one sample ALT on localhost so the button can be seen before the real list arrives */
+if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&!Object.keys(ALTS).length)ALTS["https://go.shopmy.us/p-100137811"]=["c07-coat","Sample brand","Cheaper option goes here",""];
+const CARDX={};let cardN=0;
+const card=(it,key,extra="",showAlt=false)=>{const id="c"+(cardN++);CARDX[id]={it,key,extra};return cardHtml(it,key,extra,showAlt,id)};
+const cardHtml=(it,key,extra,showAlt,id)=>{const alt=ALTS[key],[img,brand,desc,url]=showAlt&&alt?alt:it;return `
+    <${url?`a class="card${showAlt?" is-alt":""}" data-card="${id}" href="${url}" target="_blank" rel="noopener sponsored"`:`div class="card soon${showAlt?" is-alt":""}" data-card="${id}"`}>
       <span class="ph"><img src="img/${img}.webp?v=${V}" alt="${desc}" loading="lazy">
         <button class="heart" aria-label="Save ${desc}" aria-pressed="${!!saved[key]}" data-key="${key}">${heart}</button>
-        <span class="quick">${url?"Shop now":"Link coming soon"}</span></span>
-      <span class="brand">${brand||"&nbsp;"}</span><span class="desc">${desc}</span>${extra}
-    </${url?"a":"div"}>`;
+        <span class="quick">${url?"Shop now":"Link coming soon"}</span>
+        ${alt?`<button class="alt-btn" data-card="${id}" aria-pressed="${showAlt}">${showAlt?"Original":"ALT"}</button>`:""}</span>
+      ${showAlt?`<span class="alt-tag">Budget alternative</span>`:""}<span class="brand">${brand||"&nbsp;"}</span><span class="desc">${desc}</span>${extra}
+    </${url?"a":"div"}>`};
 const keyOf=it=>it[3]||it[2];
 
 /* View by product: one card per product, even when it appears in several looks */
@@ -552,6 +592,13 @@ looksEl.addEventListener("click",e=>{const t=e.target.closest("[data-i]");if(t)o
 looksEl.addEventListener("keydown",e=>{const t=e.target.closest(".fig");if(t&&(e.key==="Enter"||e.key===" ")){e.preventDefault();openShop(+t.dataset.i)}});
 document.getElementById("close").onclick=closeShop;scrim.onclick=closeShop;
 addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(drawer.classList.contains("open"))closeShop();else if(menu.classList.contains("open"))closeMenu()});
+/* ALT button: flip a card between the original piece and its cheaper alternative */
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".alt-btn");if(!b)return;e.preventDefault();e.stopPropagation();
+  const id=b.dataset.card,x=CARDX[id],el=document.querySelector(`.card[data-card="${id}"]`);if(!x||!el)return;
+  el.outerHTML=cardHtml(x.it,x.key,x.extra,b.getAttribute("aria-pressed")!=="true",id);
+  const nb=document.querySelector(`.alt-btn[data-card="${id}"]`);nb&&nb.focus();
+},true);
 /* hearts: same product, same heart, wherever it shows */
 document.addEventListener("click",e=>{
   const h=e.target.closest(".heart");if(!h)return;e.preventDefault();
@@ -597,10 +644,13 @@ route(location.hash.slice(1)||"home",false);
 /* Cinematic modules (scroll-driven only) */
 (function(){
   const figs=[...document.querySelectorAll(".fig")];
-  if(!window.gsap||matchMedia("(prefers-reduced-motion: reduce)").matches){figs.forEach(f=>f.classList.add("settled"));document.getElementById("together-fill").style.clipPath="none";return}
+  if(!window.gsap||matchMedia("(prefers-reduced-motion: reduce)").matches){figs.forEach(f=>f.classList.add("settled"));document.getElementById("together-fill").style.clipPath="none";document.querySelectorAll(".occ-fill").forEach(e=>e.style.clipPath="none");return}
   gsap.registerPlugin(ScrollTrigger);
 
   /* "Now let's put it together" fills in left to right with the scroll */
+  /* Each section name fills in left to right as it scrolls in */
+  gsap.utils.toArray(".occ-fill").forEach(el=>gsap.fromTo(el,{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",ease:"none",
+    scrollTrigger:{trigger:el.closest(".occ-head"),start:"top 85%",end:"center 50%",scrub:.6}}));
   gsap.fromTo("#together-fill",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",ease:"none",
     scrollTrigger:{trigger:".together",start:"top 80%",end:"center 45%",scrub:.6}});
 
@@ -617,5 +667,12 @@ route(location.hash.slice(1)||"home",false);
   cards.forEach((c,i)=>{if(i<cards.length-1)gsap.fromTo(c,{scale:1,filter:"brightness(1)"},{scale:.94,filter:"brightness(.92)",ease:"none",
     scrollTrigger:{trigger:cards[i+1],start:"top 85%",end:"top 25%",scrub:true}})});
 })();
+
+
+/* Section openers fade up as they scroll in */
+(function(){ const hs=[...document.querySelectorAll(".occ-head")];
+  if(!("IntersectionObserver" in window))return hs.forEach(h=>h.classList.add("in"));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});
+  hs.forEach(h=>io.observe(h)); })();
 
 </script>
