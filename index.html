@@ -500,7 +500,7 @@ const OCC=[
  {"title":"Black Tie, Mountains","n":6,"copy":"Olive silk, a brown stole and diamonds. Black tie in the mountains.","ar":0.7902,"pieces":[["p06-dress",33.9,5.36,29.94],["c06-stole",65.55,2.19,33.31],["c05-sandals",70.95,78.36,28.01],["p06-clutch",0.0,49.55,34.04],["c06-earrings",4.01,0.47,18.11]],"items":[["p06-dress","Rabanne","Olive embellished satin gown","https://go.shopmy.us/p-101654332","Dresses"],["c06-stole","Mimchik","Faux fur shawl","https://go.shopmy.us/p-101058125","Accessories"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["p06-clutch","","Silver shagreen clutch","","Bags"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1794017781";
+const V="1794018274";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -555,7 +555,7 @@ const carousel=(l,i)=>`<div class="fig-wrap car">
     <div class="car-slide">${fig(l,i)}</div>
     ${l.items.map(([img,brand,desc,url])=>`<${url?`a href="${url}" target="_blank" rel="noopener sponsored"`:"div"} class="car-slide car-item${url?"":" soon"}">
       <img src="img/${img}.webp?v=${V}" alt="${brand} ${desc}" loading="lazy">
-      <span class="car-cap"><span><b>${brand}</b>${desc}</span><em>${url?"Shop now →":"Link soon"}</em></span></${url?"a":"div"}>`).join("")}
+      <span class="car-cap"><b>${brand||desc}</b><em>${url?"Shop now →":"Link soon"}</em></span></${url?"a":"div"}>`).join("")}
   </div>
   <button class="car-arrow car-prev" aria-label="Previous" disabled>‹</button><button class="car-arrow car-next" aria-label="Next">›</button>
   <span class="car-hint">Swipe →</span>
