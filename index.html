@@ -175,6 +175,28 @@ html.loading,html.loading body{overflow:hidden}
 .fig .pc img{display:block;width:100%;height:auto;filter:drop-shadow(0 10px 12px rgba(0,0,0,.07))}
 .fig.settled .pc img{animation:drift 5s ease-in-out infinite alternate;animation-delay:calc(var(--k) * -.9s)}
 @keyframes drift{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(0,-5px,0) rotate(.4deg)}}
+/* Swipe test (Ericka's looks): the outfit, then each piece on its own; tapping a piece opens its store */
+.car{position:relative;flex-direction:column;container-type:normal}
+.car-track{display:flex;width:100%;flex:1 1 0;min-height:0;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.car-track::-webkit-scrollbar{display:none}
+.car-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;container-type:size;text-decoration:none;color:var(--ink)}
+.car-item{position:relative;flex-direction:column;background:var(--tile-grad)}
+.car-item img{width:72%;height:72%;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(0,0,0,.08));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.car-item:hover img{transform:scale(1.03)}
+.car-cap{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);padding:var(--s4);font-family:var(--sans);font-size:13px;letter-spacing:.06em}
+.car-cap b{font-weight:600;text-transform:uppercase;letter-spacing:.12em;margin-right:var(--s2)}
+.car-cap span{color:var(--grey);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.car-cap em{font-style:normal;white-space:nowrap;color:var(--burnt);text-transform:uppercase;letter-spacing:.14em;font-size:11px}
+.car-item.soon em{color:var(--grey)}
+.car-dots{display:flex;justify-content:center;gap:8px;padding-top:var(--s3)}
+.car-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s,transform .3s}
+.car-dots button.on{background:var(--ink);transform:scale(1.25)}
+.car-arrow{position:absolute;top:50%;width:44px;height:44px;margin-top:-34px;border:0;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 2px 10px rgba(0,0,0,.08);font-size:20px;line-height:44px;cursor:pointer;z-index:2;opacity:0;transition:opacity .3s}
+.car:hover .car-arrow{opacity:1}.car-arrow[disabled]{opacity:0!important;pointer-events:none}
+.car-prev{left:var(--s2)}.car-next{right:var(--s2)}
+.car-hint{position:absolute;right:var(--s3);top:var(--s3);font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey);pointer-events:none;transition:opacity .4s}
+.car.moved .car-hint{opacity:0}
+@media (hover:none){.car-arrow{display:none}}
 .look-copy h3{font-size:clamp(22px,2.6vw,34px);line-height:1.2}
 .look-copy p{margin:var(--s4) 0 var(--s4);max-width:36ch;font-size:20px;line-height:1.45}
 .look-copy .brands{display:block;max-width:44ch;margin-bottom:var(--s8);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);line-height:1.9}
@@ -478,7 +500,7 @@ const OCC=[
  {"title":"Black Tie, Mountains","n":6,"copy":"Olive silk, a brown stole and diamonds. Black tie in the mountains.","ar":0.7902,"pieces":[["p06-dress",33.9,5.36,29.94],["c06-stole",65.55,2.19,33.31],["c05-sandals",70.95,78.36,28.01],["p06-clutch",0.0,49.55,34.04],["c06-earrings",4.01,0.47,18.11]],"items":[["p06-dress","Rabanne","Olive embellished satin gown","https://go.shopmy.us/p-101654332","Dresses"],["c06-stole","Mimchik","Faux fur shawl","https://go.shopmy.us/p-101058125","Accessories"],["c06-earrings","Real Fine Studio","Georgian double drops","https://go.shopmy.us/p-100354880","Accessories"],["p06-clutch","","Silver shagreen clutch","","Bags"],["c05-sandals","Aquazzura","Nuda mirrored sandals","https://go.shopmy.us/p-100262289","Shoes"]]}]}];
 const CATS=["Outerwear", "Tops", "Bottoms", "Dresses", "Bags", "Shoes", "Accessories"];
 /* bumped on every build so phones never show a stale photo */
-const V="1794012088";
+const V="1794017781";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -527,6 +549,18 @@ addEventListener("popstate",()=>route(location.hash.slice(1),false));
 /* Occasions, each with its looks: loose pieces laid out as the stylist placed them + copy + Shop the look */
 const brands=l=>[...new Set(l.items.map(it=>it[1]).filter(Boolean))].join(" · ");
 const fig=(l,i)=>`<div class="fig" data-i="${i}" role="button" tabindex="0" aria-label="Shop this ${l.occ} look" style="--ar:${l.ar}">${l.pieces.map(([img,x,y,w],k)=>`<span class="pc" style="left:${x}%;top:${y}%;width:${w}%;--k:${k}"><img src="img/${img}.webp?v=${V}" alt="" decoding="async"></span>`).join("")}</div>`;
+/* Every look swipes: slide 1 is the outfit, then one slide per piece that links straight to the store */
+const carousel=(l,i)=>`<div class="fig-wrap car">
+  <div class="car-track">
+    <div class="car-slide">${fig(l,i)}</div>
+    ${l.items.map(([img,brand,desc,url])=>`<${url?`a href="${url}" target="_blank" rel="noopener sponsored"`:"div"} class="car-slide car-item${url?"":" soon"}">
+      <img src="img/${img}.webp?v=${V}" alt="${brand} ${desc}" loading="lazy">
+      <span class="car-cap"><span><b>${brand}</b>${desc}</span><em>${url?"Shop now →":"Link soon"}</em></span></${url?"a":"div"}>`).join("")}
+  </div>
+  <button class="car-arrow car-prev" aria-label="Previous" disabled>‹</button><button class="car-arrow car-next" aria-label="Next">›</button>
+  <span class="car-hint">Swipe →</span>
+  <div class="car-dots">${[0,...l.items].map((_,k)=>`<button aria-label="Slide ${k+1}"${k?"":' class="on"'}></button>`).join("")}</div>
+</div>`;
 const looksEl0=document.getElementById("looks");
 looksEl0.innerHTML=OCC.map((o,oi)=>`
   <section class="occ" id="${o.id}">
@@ -535,12 +569,28 @@ looksEl0.innerHTML=OCC.map((o,oi)=>`
       <p class="occ-sub">${o.sub||""}</p></div></header>
     ${o.looks.map(l=>{const i=LOOKS.findIndex(x=>x.n===l.n);return `
     <div class="wrap look">
-      <div class="fig-wrap">${fig(LOOKS[i],i)}</div>
+      ${carousel(LOOKS[i],i)}
       <div class="look-copy"><h3>${l.title}</h3><p>${l.copy}</p><span class="brands">${brands(l)}</span>
         <button class="btn${i%2?"":" btn-dark"}" data-i="${i}">Shop the look</button><span class="count">${l.items.length} pieces</span></div>
     </div>`}).join("")}
     <nav class="wrap occ-next" aria-label="More plans">${oi>0?`<a href="#${OCC[oi-1].id}"><small>Previous</small>${OCC[oi-1].name}</a>`:""}${oi<OCC.length-1?`<a href="#${OCC[oi+1].id}"><small>Next</small>${OCC[oi+1].name}</a>`:`<a href="#shop"><small>Next</small>View by product</a>`}</nav>
   </section>`).join("");
+document.querySelectorAll(".car").forEach(c=>{
+  const tr=c.querySelector(".car-track"),dots=[...c.querySelectorAll(".car-dots button")],prev=c.querySelector(".car-prev"),next=c.querySelector(".car-next");
+  const at=()=>Math.round(tr.scrollLeft/tr.clientWidth);
+  const sync=()=>{const k=at();dots.forEach((d,j)=>d.classList.toggle("on",j===k));prev.disabled=k===0;next.disabled=k===dots.length-1;if(k)c.classList.add("moved")};
+  tr.addEventListener("scroll",()=>requestAnimationFrame(sync),{passive:true});
+  const goTo=k=>tr.scrollTo({left:k*tr.clientWidth});
+  prev.onclick=()=>goTo(at()-1);next.onclick=()=>goTo(at()+1);dots.forEach((d,j)=>d.onclick=()=>goTo(j));
+  /* mouse drag on big screens, like a swipe; a drag never counts as a click on the piece */
+  let x0=null,s0=0,moved=false;
+  tr.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;x0=e.clientX;s0=tr.scrollLeft;moved=false;tr.style.scrollSnapType="none";tr.style.scrollBehavior="auto"});
+  addEventListener("pointermove",e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>5)moved=true;tr.scrollLeft=s0-dx});
+  addEventListener("pointerup",e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;tr.style.scrollSnapType="";tr.style.scrollBehavior="";
+    const k=Math.round(s0/tr.clientWidth)+(dx<-40?1:dx>40?-1:0);goTo(Math.max(0,Math.min(dots.length-1,k)))});
+  tr.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+  tr.addEventListener("dragstart",e=>e.preventDefault());
+});
 looksEl0.addEventListener("click",e=>{const a=e.target.closest(".occ-next a,.occ-back");if(!a)return;e.preventDefault();route(a.getAttribute("href").slice(1))});
 
 /* Product card, shared by the drawer and View by product */
