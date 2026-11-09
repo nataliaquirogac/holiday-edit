@@ -451,6 +451,16 @@ html.gated,html.gated body{overflow:hidden}
 .cover-by{margin-top:var(--s6);font-family:var(--mark);font-size:clamp(12px,1.3vw,16px);letter-spacing:.3em;text-transform:uppercase;-webkit-text-stroke:.04em currentColor;text-shadow:0 1px 14px rgba(0,0,0,.6);opacity:0;animation:coverWord 1s cubic-bezier(.16,1,.3,1) 1.05s forwards}
 @keyframes coverWord{to{opacity:1;transform:none}}
 @media (max-width:700px){.cover{height:calc(100svh - 64px);min-height:440px}.cover h1{font-size:44px}}
+
+/* Footer: their Instagrams, and a tiny site credit tucked in the corner */
+.site-foot{position:relative;background:var(--ink);color:var(--white);padding:var(--s16) var(--s6) var(--s24);text-align:center}
+.sf-ig{display:flex;justify-content:center;align-items:baseline;flex-wrap:wrap;gap:var(--s3) var(--s6);font-family:var(--mark);font-size:clamp(14px,1.6vw,20px);letter-spacing:.12em;text-transform:uppercase;-webkit-text-stroke:.05em currentColor}
+.sf-ig a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+.sf-ig a:hover{border-color:currentColor}
+.sf-ig span{font-family:var(--sans);font-size:12px;color:#8a8a8a;-webkit-text-stroke:0}
+.sf-nq{position:absolute;right:var(--s6);bottom:var(--s4);font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:lowercase;color:#6f6f6f;text-decoration:none}
+.sf-nq:hover{color:#bbb}
+@media (max-width:700px){.site-foot{padding:var(--s12) var(--s4) var(--s16)}.sf-ig{flex-direction:column;align-items:center;gap:var(--s2)}.sf-nq{right:50%;transform:translateX(50%)}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Enter password">
@@ -521,7 +531,7 @@ html.gated,html.gated body{overflow:hidden}
         <p>Este no es un guide para comprarte un clóset nuevo. Es para comprar menos y mejor: piezas que se hablan entre sí y con lo que ya tienes. Todo está pensado en base + capa (porque un día de invierno en México puede empezar en 8° y terminar en 22°), organizado por categoría, con una alternativa budget por cada pieza de inversión. El bonus: un capsule chiquito de ski y una sección de eventos, porque diciembre es el mes en el que más veces dices “no tengo nada que ponerme”.</p>
         <p>Todo lo que ves aquí lo compraríamos nosotras. De hecho, mucho ya lo compramos.</p>
         <p>Te pedimos no compartas esta guía <span class="heart-red">&#9829;</span></p>
-        <p class="closing">Con cariño (y con criterio de buyer),</p>
+        <p class="closing">With love,</p>
         <span class="sig">Ericka Tamez &amp; María Tricio</span>
       </div>
     </div>
@@ -571,6 +581,10 @@ html.gated,html.gated body{overflow:hidden}
   </section>
  </div>
 </main>
+<footer class="site-foot">
+  <div class="sf-ig"><a href="https://www.instagram.com/chicacheckout/" target="_blank" rel="noopener">@chicacheckout</a><span aria-hidden="true">&amp;</span><a href="https://www.instagram.com/erickatamez/" target="_blank" rel="noopener">@erickatamez</a></div>
+  <a class="sf-nq" href="https://by-nq.com" target="_blank" rel="noopener">by-nq.com</a>
+</footer>
 
 
 <div class="scrim" id="scrim"></div>
@@ -641,7 +655,7 @@ const PMETA={"c101-jacket":["Jackets","blue"],"c101-sweater":["Knits","brown"],"
 const SUBS={"Outerwear": ["Coats", "Jackets", "Ski & fleece"], "Tops": ["Knits", "Shirts", "Tees & tanks", "Statement", "Active"], "Bottoms": ["Shorts", "Skirts", "Pants", "Jeans"], "Dresses": ["Minis", "Long"], "Bags": ["Clutches", "Small bags", "Large bags"], "Shoes": ["Heels", "Sandals", "Flats", "Boots", "Sneakers"], "Accessories": ["Earrings", "Necklaces", "Scarves & stoles", "Belts", "Hats", "Sunglasses"]};
 const ALTDATA={"21":{"https://go.shopmy.us/p-100467887":["alt-101682101","Lioness","Olsen coat","https://go.shopmy.us/p-101682101",""],"https://go.shopmy.us/p-101664044":["alt-101680162","Reformation","Jeanne ankle boot","https://go.shopmy.us/p-101680162",""],"https://go.shopmy.us/p-101663713":["alt-101680436","J.Crew","Berkeley suede shoulder bag","https://go.shopmy.us/p-101680436",""]},"20":{"https://go.shopmy.us/p-100137811":["alt-101682796","Apparis","Blair leopard coat","https://go.shopmy.us/p-101682796",""],"https://go.shopmy.us/p-100137715":["alt-101680726","Schutz","Lexi bootie","https://go.shopmy.us/p-101680726",""]},"19":{"https://go.shopmy.us/p-101653007":["alt-102527980","Parker Thatch","Daily bag in leopard","https://go.shopmy.us/p-102527980",""]},"18":{"https://go.shopmy.us/p-100152452":["alt-101687872","Mango","Oversize leather jacket","https://go.shopmy.us/p-101687872",""],"https://go.shopmy.us/p-100156105":["alt-101688138","Atorie","Slim lambskin bag","https://go.shopmy.us/p-101688138",""],"https://go.shopmy.us/p-100154459":["alt-101687738","Mango","Kitten heel ankle boots","https://go.shopmy.us/p-101687738",""]},"16":{"https://go.shopmy.us/p-100460214":["altp-101689730","Free People","Chalet velour pants","https://go.shopmy.us/p-101689730","photo"],"https://go.shopmy.us/p-100467887":["alt-101682101","Lioness","Olsen coat","https://go.shopmy.us/p-101682101",""]},"15":{"https://go.shopmy.us/p-100145051":["alt-101679854","Mango","Straight corduroy pants","https://go.shopmy.us/p-101679854",""],"https://go.shopmy.us/p-100145563":["alt-92044769","Tony Bianco","Rupert suede boots","https://go.shopmy.us/p-92044769",""],"https://go.shopmy.us/p-100147090":["alt-102251614","Atorie","Lazy retro shoulder bag","https://go.shopmy.us/p-102251614",""]},"14":{"https://go.shopmy.us/p-100149915":["altp-102699314","Reformation","Helena velvet jacket","https://go.shopmy.us/p-102699314","photo"],"https://go.shopmy.us/p-100206656":["alt-102699606","Reformation","Solene embroidered wristlet","https://go.shopmy.us/p-102699606",""]},"13":{"https://go.shopmy.us/p-100154884":["altp-102699899","Reformation","Valentine coat","https://go.shopmy.us/p-102699899","photo"],"https://go.shopmy.us/p-101659722":["alt-102700378","Tony Bianco","Dixon croco heels","https://go.shopmy.us/p-102700378",""]},"12":{"https://go.shopmy.us/p-100276975":["alt-102700725","Tony Bianco","Jaq suede boots","https://go.shopmy.us/p-102700725",""],"https://go.shopmy.us/p-100273955":["altp-102701943","Commando","Ballet turtleneck bodysuit","https://go.shopmy.us/p-102701943","photo"],"https://go.shopmy.us/p-100273818":["altp-102701370","Maude Club","Nyla skirt","https://go.shopmy.us/p-102701370","photo"]},"11":{"https://go.shopmy.us/p-100154884":["altp-102699899","Reformation","Valentine coat","https://go.shopmy.us/p-102699899","photo"],"https://go.shopmy.us/p-100207848":["altp-102702790","V. Chapman","Kimberlina dress","https://go.shopmy.us/p-102702790","photo"]},"10":{"https://go.shopmy.us/p-101658074":["alt-102703291","SRG","Penny top","https://go.shopmy.us/p-102703291",""],"https://go.shopmy.us/p-100263973":["alt-102700378","Tony Bianco","Dixon croco heels","https://go.shopmy.us/p-102700378",""]},"9":{"https://go.shopmy.us/p-102402729":["alt-100260079","Topshop","Ember satin clutch","https://go.shopmy.us/p-100260079",""],"https://go.shopmy.us/p-100258887":["altp-102704165","Lioness","Rhode mini dress","https://go.shopmy.us/p-102704165","photo"],"https://go.shopmy.us/p-100348215":["alt-98202441","Atorie","Fur trim jacket","https://go.shopmy.us/p-98202441",""]},"8":{"https://go.shopmy.us/p-100154884":["altp-102705077","Reformation","Courtney coat","https://go.shopmy.us/p-102705077","photo"],"https://go.shopmy.us/p-101656762":["altp-102704715","Posse","Chester mini dress","https://go.shopmy.us/p-102704715","photo"]},"7":{"https://go.shopmy.us/p-101655430":["altp-102707030","Lovers and Friends","Alix mini dress","https://go.shopmy.us/p-102707030","photo"],"https://go.shopmy.us/p-101656197":["alt-101868079","Femme LA","Maeve satin slipper","https://go.shopmy.us/p-101868079",""]},"6":{"https://go.shopmy.us/p-101654332":["alt-102708477","Revolve","Rielle dress","https://go.shopmy.us/p-102708477",""]},"5":{"https://go.shopmy.us/p-100266447":["altp-102709084","Superdown","Gabrielle maxi dress","https://go.shopmy.us/p-102709084","photo"]},"4":{"https://go.shopmy.us/p-100359980":["altp-102709513","Lovers and Friends","Harlow flannel shacket","https://go.shopmy.us/p-102709513","photo"],"https://go.shopmy.us/p-101653737":["altp-96185648","Free People","Champ is here pants","https://go.shopmy.us/p-96185648","photo"]},"3":{"https://go.shopmy.us/p-101653007":["alt-102527980","Parker Thatch","Daily bag in leopard","https://go.shopmy.us/p-102527980",""],"https://go.shopmy.us/p-101653449":["alt-100361136","Le Monde Béryl","Après ski shearling flats","https://go.shopmy.us/p-100361136",""]}};
 /* bumped on every build so phones never show a stale photo */
-const V="1794197652";
+const V="1794198204";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
