@@ -146,6 +146,12 @@ html.loading,html.loading body{overflow:hidden}
 .staples .lead{max-width:56ch;font-size:18px;margin:var(--s6) 0 0}
 .st-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s12) var(--s8);margin-top:var(--s12)}
 .st .ph{display:block;aspect-ratio:1/1;background:var(--tile-grad);position:relative;overflow:hidden}
+/* Staples link straight to their product: brand + Shop now under the photo */
+a.st{display:block;color:inherit;text-decoration:none}
+a.st .ph img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+a.st:hover .ph img{transform:scale(1.04)}
+.st-shop{position:absolute;right:var(--s3);bottom:var(--s3);font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--burnt);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+a.st:hover .st-shop{transform:translateX(-3px)}
 .st .ph img{position:absolute;top:10%;left:14%;width:72%;height:80%;object-fit:contain;filter:drop-shadow(0 10px 14px rgba(0,0,0,.08))}
 .st h3{font-size:16px;letter-spacing:.1em;margin-top:var(--s4)}
 .st p{margin:var(--s2) 0 0;font-size:16px;line-height:1.5;color:#333;max-width:34ch}
@@ -202,7 +208,7 @@ html.loading,html.loading body{overflow:hidden}
 .car-cap em{font-style:normal;white-space:nowrap;color:var(--burnt);text-transform:uppercase;letter-spacing:.14em;font-size:11px}
 .car-item.soon em{color:var(--grey)}
 .car-item.light,.card .ph.light,.st .ph.light{background:var(--tile-grad-light)}
-.car-alt{position:absolute;top:var(--s4);left:var(--s4);padding:6px 12px;background:var(--burnt);color:var(--white);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em}
+.car-alt{position:absolute;top:var(--s4);left:var(--s4);padding:6px 12px;background:var(--burnt);color:var(--white);font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
 .car-dots{display:flex;justify-content:center;gap:8px;padding-top:var(--s3)}
 .car-dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:var(--line);cursor:pointer;transition:background .3s,transform .3s}
 .car-dots button.on{background:var(--ink);transform:scale(1.25)}
@@ -258,7 +264,7 @@ html.loading,html.loading body{overflow:hidden}
 .card:hover .quick,.card:focus-visible .quick{opacity:1}
 .card.soon{cursor:default}
 .card.soon .quick{opacity:1;color:var(--grey)}
-/* Swap button: says what you are looking at (ORIGINAL or ALT); the change icon shows it flips */
+/* Swap button: says what you are looking at (SPLURGE or BUDGET); the change icon shows it flips */
 .alt-btn{position:absolute;top:var(--s3);left:var(--s3);z-index:1;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 9px;border-radius:17px;background:var(--white);color:var(--burnt);box-shadow:0 2px 8px rgba(0,0,0,.08);font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background .3s,color .3s}
 .alt-btn svg{width:16px;height:16px;flex:none}
 .alt-btn{color:var(--ink)}
@@ -417,6 +423,22 @@ html.gated,html.gated body{overflow:hidden}
   .menu-word{display:inline;margin-left:6px;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
   .menu-btn{width:auto}
 }
+
+/* Sections (Natalia picked A): each opens on a full-width black band, white title, bolder */
+.occ-head{--hb:var(--ink);--hf:var(--white);--hk:#E0644F;--hs:#d6d6d6;border-top:0;padding-block:var(--s16)}
+.occ-head .occ-back{opacity:.8}
+.occ-head h2{-webkit-text-stroke:.07em currentColor}
+/* Floating section pill (Cinematic Modules "Dynamic Island"): follows you through the looks, rolls to the next section's name */
+.sec-pill{position:fixed;left:50%;top:var(--pill-top,12px);z-index:5;display:flex;align-items:center;gap:12px;height:40px;padding:0 20px;border-radius:100px;background:var(--ink);color:var(--white);box-shadow:0 6px 24px rgba(0,0,0,.18);transform:translate(-50%,-160%);opacity:0;pointer-events:none;cursor:pointer;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .35s ease,width .5s cubic-bezier(.16,1,.3,1),top .35s cubic-bezier(.16,1,.3,1);overflow:hidden;white-space:nowrap}
+.sec-pill.show{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.sec-pill .dot{width:7px;height:7px;border-radius:50%;background:#E0644F;flex:none;animation:pillBreathe 2.4s ease infinite}
+@keyframes pillBreathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+.sec-pill .win{position:relative;display:block;height:16px;overflow:hidden}
+.sec-pill .txt{display:block;font-family:var(--mark);font-size:12px;line-height:16px;letter-spacing:.14em;text-transform:uppercase;-webkit-text-stroke:.05em currentColor;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s ease}
+.sec-pill .txt.out{transform:translateY(-110%);opacity:0}
+.sec-pill .txt.in{transform:translateY(110%);opacity:0;transition:none}
+.sec-pill .n{font-family:var(--sans);font-size:11px;letter-spacing:.12em;color:#9a9a9a}
+@media (max-width:700px){.sec-pill{height:36px;padding:0 16px}.sec-pill .txt{font-size:11px}}
 </style>
 
 <div id="gate" role="dialog" aria-modal="true" aria-label="Enter password">
@@ -451,6 +473,7 @@ html.gated,html.gated body{overflow:hidden}
 <script>document.documentElement.classList.add("loading","js")</script>
 
 <div id="wm" aria-hidden="true"></div>
+<div class="sec-pill" id="sec-pill" role="button" aria-label="Back to the top of this section"><span class="win"><span class="txt"></span></span><span class="n"></span></div>
 
 <header class="mast">
   <div class="wrap mast-row">
@@ -538,7 +561,7 @@ html.gated,html.gated body{overflow:hidden}
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true">
   <div class="drawer-head">
     <div><span class="kicker">Shop the look</span><h2 id="drawer-title"></h2><span class="by" id="drawer-by"></span>
-      <div class="dtabs" id="dtabs" hidden><button data-v="look" aria-pressed="true">The look</button><button data-v="alts" aria-pressed="false">Shop ALTs</button></div></div>
+      <div class="dtabs" id="dtabs" hidden><button data-v="look" aria-pressed="true">The look</button><button data-v="alts" aria-pressed="false">Budget alternatives</button></div></div>
     <button class="close" id="close" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
   </div>
   <div class="drawer-body"><div class="cards" id="cards"></div></div>
@@ -602,7 +625,7 @@ const PMETA={"c101-jacket":["Jackets","blue"],"c101-sweater":["Knits","brown"],"
 const SUBS={"Outerwear": ["Coats", "Jackets", "Ski & fleece"], "Tops": ["Knits", "Shirts", "Tees & tanks", "Statement", "Active"], "Bottoms": ["Shorts", "Skirts", "Pants", "Jeans"], "Dresses": ["Minis", "Long"], "Bags": ["Clutches", "Small bags", "Large bags"], "Shoes": ["Heels", "Sandals", "Flats", "Boots", "Sneakers"], "Accessories": ["Earrings", "Necklaces", "Scarves & stoles", "Belts", "Hats", "Sunglasses"]};
 const ALTDATA={"21":{"https://go.shopmy.us/p-100467887":["alt-101682101","Lioness","Olsen coat","https://go.shopmy.us/p-101682101",""],"https://go.shopmy.us/p-101664044":["alt-101680162","Reformation","Jeanne ankle boot","https://go.shopmy.us/p-101680162",""],"https://go.shopmy.us/p-101663713":["alt-101680436","J.Crew","Berkeley suede shoulder bag","https://go.shopmy.us/p-101680436",""]},"20":{"https://go.shopmy.us/p-100137811":["alt-101682796","Apparis","Blair leopard coat","https://go.shopmy.us/p-101682796",""],"https://go.shopmy.us/p-100137715":["alt-101680726","Schutz","Lexi bootie","https://go.shopmy.us/p-101680726",""]},"19":{"https://go.shopmy.us/p-101653007":["alt-102527980","Parker Thatch","Daily bag in leopard","https://go.shopmy.us/p-102527980",""]},"18":{"https://go.shopmy.us/p-100152452":["alt-101687872","Mango","Oversize leather jacket","https://go.shopmy.us/p-101687872",""],"https://go.shopmy.us/p-100156105":["alt-101688138","Atorie","Slim lambskin bag","https://go.shopmy.us/p-101688138",""],"https://go.shopmy.us/p-100154459":["alt-101687738","Mango","Kitten heel ankle boots","https://go.shopmy.us/p-101687738",""]},"16":{"https://go.shopmy.us/p-100460214":["altp-101689730","Free People","Chalet velour pants","https://go.shopmy.us/p-101689730","photo"],"https://go.shopmy.us/p-100467887":["alt-101682101","Lioness","Olsen coat","https://go.shopmy.us/p-101682101",""]},"15":{"https://go.shopmy.us/p-100145051":["alt-101679854","Mango","Straight corduroy pants","https://go.shopmy.us/p-101679854",""],"https://go.shopmy.us/p-100145563":["alt-92044769","Tony Bianco","Rupert suede boots","https://go.shopmy.us/p-92044769",""],"https://go.shopmy.us/p-100147090":["alt-102251614","Atorie","Lazy retro shoulder bag","https://go.shopmy.us/p-102251614",""]},"14":{"https://go.shopmy.us/p-100149915":["altp-102699314","Reformation","Helena velvet jacket","https://go.shopmy.us/p-102699314","photo"]},"13":{"https://go.shopmy.us/p-100154884":["altp-102699899","Reformation","Valentine coat","https://go.shopmy.us/p-102699899","photo"],"https://go.shopmy.us/p-101659722":["alt-102700378","Tony Bianco","Dixon croco heels","https://go.shopmy.us/p-102700378",""]},"12":{"https://go.shopmy.us/p-100276975":["alt-102700725","Tony Bianco","Jaq suede boots","https://go.shopmy.us/p-102700725",""],"https://go.shopmy.us/p-100273955":["altp-102701943","Commando","Ballet turtleneck bodysuit","https://go.shopmy.us/p-102701943","photo"],"https://go.shopmy.us/p-100273818":["altp-102701370","Maude Club","Nyla skirt","https://go.shopmy.us/p-102701370","photo"]},"11":{"https://go.shopmy.us/p-100154884":["altp-102699899","Reformation","Valentine coat","https://go.shopmy.us/p-102699899","photo"]},"10":{"https://go.shopmy.us/p-101658074":["alt-102703291","SRG","Penny top","https://go.shopmy.us/p-102703291",""],"https://go.shopmy.us/p-100263973":["alt-102700378","Tony Bianco","Dixon croco heels","https://go.shopmy.us/p-102700378",""]},"9":{"https://go.shopmy.us/p-102402729":["alt-100260079","Topshop","Ember satin clutch","https://go.shopmy.us/p-100260079",""],"https://go.shopmy.us/p-100258887":["altp-102704165","Lioness","Rhode mini dress","https://go.shopmy.us/p-102704165","photo"],"https://go.shopmy.us/p-100348215":["alt-98202441","Atorie","Fur trim jacket","https://go.shopmy.us/p-98202441",""]},"8":{"https://go.shopmy.us/p-100154884":["altp-102705077","Reformation","Courtney coat","https://go.shopmy.us/p-102705077","photo"],"https://go.shopmy.us/p-101656762":["altp-102704715","Posse","Chester mini dress","https://go.shopmy.us/p-102704715","photo"]},"7":{"https://go.shopmy.us/p-101655430":["altp-102707030","Lovers and Friends","Alix mini dress","https://go.shopmy.us/p-102707030","photo"],"https://go.shopmy.us/p-101656197":["alt-101868079","Femme LA","Maeve satin slipper","https://go.shopmy.us/p-101868079",""]},"6":{"https://go.shopmy.us/p-101654332":["alt-102708477","Revolve","Rielle dress","https://go.shopmy.us/p-102708477",""]},"5":{"https://go.shopmy.us/p-100266447":["altp-102709084","Superdown","Gabrielle maxi dress","https://go.shopmy.us/p-102709084","photo"]},"4":{"https://go.shopmy.us/p-100359980":["altp-102709513","Lovers and Friends","Harlow flannel shacket","https://go.shopmy.us/p-102709513","photo"],"https://go.shopmy.us/p-101653737":["altp-96185648","Free People","Champ is here pants","https://go.shopmy.us/p-96185648","photo"]},"3":{"https://go.shopmy.us/p-101653007":["alt-102527980","Parker Thatch","Daily bag in leopard","https://go.shopmy.us/p-102527980",""],"https://go.shopmy.us/p-101653449":["alt-100361136","Le Monde Béryl","Après ski shearling flats","https://go.shopmy.us/p-100361136",""]}};
 /* bumped on every build so phones never show a stale photo */
-const V="1794193136";
+const V="1794193859";
 document.querySelectorAll(".buyer-name").forEach(e=>e.textContent=BUYER.name);
 const LOOKS=OCC.flatMap(o=>o.looks.map(l=>({...l,occ:o.name})));
 const looksLabel=n=>n>1?`${n} looks`:"1 look";
@@ -662,7 +685,7 @@ const carousel=(l,i)=>{const S=slidesOf(l);return `<div class="fig-wrap car">
   <div class="car-track">
     <div class="car-slide">${fig(l,i)}</div>
     ${S.map(([img,brand,desc,url,alt])=>`<${url?`a href="${url}" target="_blank" rel="noopener sponsored"`:"div"} class="car-slide car-item${url?"":" soon"}${alt?" is-alt":""}${alt===2?" photo":""}${isLight(img)?" light":""}">
-      ${alt?`<span class="car-alt">ALT</span>`:""}<img src="img/${img}.webp?v=${V}" alt="${brand} ${desc}" loading="lazy">
+      ${alt?`<span class="car-alt">Budget alternative</span>`:""}<img src="img/${img}.webp?v=${V}" alt="${brand} ${desc}" loading="lazy">
       <span class="car-cap"><b>${brand||desc}</b><em>${url?"Shop now →":"Link soon"}</em></span></${url?"a":"div"}>`).join("")}
     <div class="car-slide car-clone" aria-hidden="true">${fig(l,i)}</div>
   </div>
@@ -719,7 +742,7 @@ const cardHtml=(it,key,extra,showAlt,id,altO)=>{const alt=altO||ALTS[key],[img,b
       <span class="ph${isLight(img)?" light":""}"><img src="img/${img}.webp?v=${V}" alt="${desc}" loading="lazy">
         <button class="heart" aria-label="Save ${desc}" aria-pressed="${!!saved[key]}" data-key="${key}">${heart}</button>
         <span class="quick">${url?"Shop now":"Link coming soon"}</span>
-        ${alt?`<button class="alt-btn" data-card="${id}" aria-pressed="${showAlt}" aria-label="${showAlt?"Back to the original":"See the budget option"}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>${showAlt?"ALT":"Original"}</button>`:""}</span>
+        ${alt?`<button class="alt-btn" data-card="${id}" aria-pressed="${showAlt}" aria-label="${showAlt?"Back to the splurge":"See the budget alternative"}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>${showAlt?"Budget":"Splurge"}</button>`:""}</span>
       ${showAlt?`<span class="alt-tag">Budget alternative</span>`:""}<span class="brand">${brand||"&nbsp;"}</span><span class="desc">${desc}</span>${extra}
     </${url?"a":"div"}>`};
 const keyOf=it=>it[3]||it[2];
@@ -770,7 +793,7 @@ function openShop(i){
   const A=ALTBYLOOK[l.n]||{},alts=l.items.filter(it=>A[keyOf(it)]).map(it=>A[keyOf(it)]);
   const tabs=document.getElementById("dtabs");tabs.hidden=!alts.length;
   const show=v=>{tabs.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===v));
-    cardsEl.innerHTML=v==="alts"?alts.map(a=>card(a.slice(0,4),"alt:"+a[3],`<span class="alt-tag">ALT</span>`)).join(""):l.items.map(it=>card(it,keyOf(it),"",false,A[keyOf(it)])).join("");
+    cardsEl.innerHTML=v==="alts"?alts.map(a=>card(a.slice(0,4),"alt:"+a[3],`<span class="alt-tag">Budget alternative</span>`)).join(""):l.items.map(it=>card(it,keyOf(it),"",false,A[keyOf(it)])).join("");
     drawer.querySelector(".drawer-body").scrollTop=0};
   tabs.onclick=e=>{const b=e.target.closest("button");if(b)show(b.dataset.v)};
   show("look");
@@ -832,6 +855,28 @@ route(location.hash.slice(1)||"home",false);
 
 /* Long, narrow pieces (gowns, maxi dresses) get more of the slide so they don't look tiny */
 document.querySelectorAll(".car-item img").forEach(im=>{const f=()=>{if(im.naturalHeight/im.naturalWidth>1.9)im.closest(".car-item").classList.add("tall")};im.complete&&im.naturalWidth?f():im.addEventListener("load",f,{once:true})});
+
+/* Staples: each one opens the piece in its photo */
+(function(){const by={};LOOKS.forEach(l=>l.items.forEach(it=>{if(!by[it[0]])by[it[0]]=it}));
+  document.querySelectorAll(".st").forEach(st=>{const im=st.querySelector(".ph img");if(!im)return;const k=(im.getAttribute("src").match(/img\/([^.?]+)\.webp/)||[])[1],it=by[k];if(!it||!it[3])return;
+    const a=document.createElement("a");a.className=st.className;a.href=it[3];a.target="_blank";a.rel="noopener sponsored";a.innerHTML=st.innerHTML;
+    a.querySelector(".ph").insertAdjacentHTML("beforeend",`<span class="st-shop">Shop now →</span>`);st.replaceWith(a)})})();
+
+/* Floating section pill: appears once a section's black band has scrolled away, rolls its name when the next section starts */
+(function(){const pill=document.getElementById("sec-pill"),txt=pill.querySelector(".txt"),num=pill.querySelector(".n"),mast=document.querySelector(".mast");
+  const secs=[...document.querySelectorAll(".occ")];let cur=null,tick=false;
+  function size(){pill.style.width="auto";const w=pill.getBoundingClientRect().width;pill.style.width=w+"px"}
+  function setName(o){const name=o.querySelector("h2").textContent,n=o.querySelectorAll(".look").length;
+    if(!pill.classList.contains("show")){txt.textContent=name;num.textContent=n+" looks";pill.style.width="auto";requestAnimationFrame(size);return}
+    txt.classList.add("out");setTimeout(()=>{txt.textContent=name;num.textContent=n+" looks";txt.classList.remove("out");txt.classList.add("in");pill.style.width="auto";const w=pill.getBoundingClientRect().width;pill.style.width=w+"px";
+      requestAnimationFrame(()=>requestAnimationFrame(()=>txt.classList.remove("in")))},220)}
+  function upd(){tick=false;const mb=Math.max(0,mast.getBoundingClientRect().bottom),top=Math.max(12,mb+10);pill.style.setProperty("--pill-top",top+"px");
+    const line=top+60;let found=null;
+    if(document.getElementById("view-shop").hidden){for(const o of secs){if(o.offsetParent===null)continue;const r=o.getBoundingClientRect(),h=o.querySelector(".occ-head").getBoundingClientRect();if(r.top<line&&r.bottom>line&&h.bottom<top+20){found=o;break}}}
+    if(found!==cur){const was=cur;cur=found;if(found){setName(found);pill.classList.add("show")}else pill.classList.remove("show")}}
+  addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener("resize",()=>{cur&&size();upd()});
+  pill.addEventListener("click",()=>{if(cur)window.scrollTo({top:cur.getBoundingClientRect().top+scrollY-(Math.max(0,mast.getBoundingClientRect().bottom)),behavior:"smooth"})});
+  upd();})();
 /* Tapping the masthead logo goes back to the very top (home) */
 document.querySelector(".mark-top").addEventListener("click",e=>{e.preventDefault();const home=!viewLooks.dataset.occ&&viewShop.hidden;if(home)window.scrollTo({top:0,behavior:"smooth"});else route("home")});
 
